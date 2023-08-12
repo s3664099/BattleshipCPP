@@ -1,5 +1,4 @@
 #include <iostream>
-#include "coordinate.cpp"
 using namespace std;
 
 int main() {
