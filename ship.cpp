@@ -16,7 +16,7 @@ string Ship::getName() {
 }
 
 bool Ship::getSunk() {
-	return this.sunk;
+	return this->sunk;
 }
 
 //adds the coordinates that the shop will occupy on the map
@@ -60,7 +60,7 @@ bool Ship::checkCoordinates(int xCoord,int yCoord, string playerName) {
 	//If found, announces that the ship has been hit
 	//Also removes the coordinates from the set
 	if (found) {
-		this->coordinates.remove(foundCoord);
+		this->coordinates.erase(foundCoord);
 		cout << playerName << " hit the "<< this->name << "\n";
 	}
 
@@ -75,7 +75,7 @@ bool Ship::checkCoordinates(int xCoord,int yCoord, string playerName) {
 //Sets the ship and sunk, and announces it.
 void Ship::sunkShip(string playerName) {
 	this->sunk = true;
-	cout << playerName << " sunk the "<<this-name << "\n";
+	cout << playerName << " sunk the "<<this->name << "\n";
 }
 
 set<Coordinate> Ship::getCoordinates() {

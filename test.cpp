@@ -1,4 +1,5 @@
 #include <iostream>
+#include "ship.cpp"
 using namespace std;
 
 int main() {
@@ -8,4 +9,6 @@ int main() {
 
 	cout << coord1.getX() << " " << coord1.getY() << "\n";
 	cout << coord2.getX() << " " << coord2.getY() << "\n";
+
+
 }

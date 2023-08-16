@@ -5,6 +5,7 @@ class Coordinate{
 		int y;
 
 	public:
+		Coordinate();
 		Coordinate(int x, int y);
 		int getX();
 		int getY();

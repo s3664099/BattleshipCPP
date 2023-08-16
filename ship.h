@@ -1,6 +1,7 @@
 #include <string>
 #include <set>
 #include "coordinate.cpp"
+using namespace std;
 
 class Ship {
 	
@@ -25,4 +26,4 @@ class Ship {
 		void sunkShip(string playername);
 		set<Coordinate> getCoordinate();
 
-}
+};
