@@ -1,6 +1,9 @@
 #include <iostream>
+#include <cassert>
 #include "ship.cpp"
 using namespace std;
+
+void ship_test();
 
 int main() {
 
@@ -10,5 +13,53 @@ int main() {
 	cout << coord1.getX() << " " << coord1.getY() << "\n";
 	cout << coord2.getX() << " " << coord2.getY() << "\n";
 
+	ship_test();
+}
 
+// Test Ship class methods
+void ship_test() {
+
+    // Create a Ship object
+    Ship ship(3, "A", "Ship A");
+
+    // Test getLength()
+    assert(ship.getLength() == 3);
+
+    // Test getLetter()
+    assert(ship.getLetter() == "A");
+
+    // Test getName()
+    assert(ship.getName() == "Ship A");
+
+    // Test getSunk()
+    assert(ship.getSunk() == false);
+
+    // Test addCoordinates()
+    ship.addCoordinates(1, 1, 1, 0, 3);
+
+   	// Assuming Coordinate class has correct implementation, 
+    // let's assume ship is at (1, 1), (2, 1), (3, 1)
+
+    // Test getCoordinates()
+    set<Coordinate> shipCoordinates = ship.getCoordinates();
+    assert(shipCoordinates.size() == 3); // Assuming (1, 1), (2, 1), (3, 1)
+
+    // Test addHitSections()
+    ship.addHitSections(2, 1); // Assuming hitting the ship at (2, 1)
+
+    // Test getHitSections()
+    set<Coordinate> hitSections = ship.getHitSections();
+    assert(hitSections.size() == 1); // Assuming (2, 1) has been hit
+
+    // Test checkCoordinates()
+    ship.checkCoordinates(1,1,"Player1");
+    ship.checkCoordinates(3,1,"Player1");
+    assert(ship.checkCoordinates(2, 1, "Player1") == true); // Assuming the ship is now sunk
+
+    // Test sunkShip()
+    ship.sunkShip("Player1");
+    assert(ship.getSunk() == true);
+
+    // Output success message if all assertions passed
+    std::cout << "All test cases passed!" << std::endl;
 }

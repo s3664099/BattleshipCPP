@@ -15,6 +15,10 @@ string Ship::getName() {
 	return this->name;
 }
 
+string Ship::getLetter() {
+	return this->letter;
+}
+
 bool Ship::getSunk() {
 	return this->sunk;
 }

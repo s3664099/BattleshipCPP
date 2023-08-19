@@ -24,6 +24,6 @@ class Ship {
 		set<Coordinate> getHitSections();
 		bool checkCoordinates(int xCoord,int yCoord, string playername);
 		void sunkShip(string playername);
-		set<Coordinate> getCoordinate();
+		set<Coordinate> getCoordinates();
 
 };

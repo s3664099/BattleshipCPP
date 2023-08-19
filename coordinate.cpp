@@ -11,3 +11,12 @@ int Coordinate::getX() {
 int Coordinate::getY() {
 	return this->y;
 }
+
+// Define comparison operators for set ordering
+bool Coordinate::operator<(const Coordinate& other) const {
+
+    if (x != other.x) {
+        return x < other.x;
+    }
+    return y < other.y;
+}

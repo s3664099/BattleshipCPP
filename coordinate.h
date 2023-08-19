@@ -9,4 +9,5 @@ class Coordinate{
 		Coordinate(int x, int y);
 		int getX();
 		int getY();
+		bool operator<(const Coordinate& other) const;
 };
