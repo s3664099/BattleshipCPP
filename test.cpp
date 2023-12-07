@@ -3,6 +3,10 @@
 #include "ship.cpp"
 using namespace std;
 
+//TODO:
+//Do Battleship.cpp, qwerkle, Connect 4, PIoT to clear clutter from folder
+
+
 void ship_test();
 
 int main() {
