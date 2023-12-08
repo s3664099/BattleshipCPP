@@ -1,31 +1,31 @@
-#include <string>
-#include <set>
-#include "ship.cpp"
-using namespace std;
+#include "board.h"
 
-class Board{
+Board::Board(string objectName,int size) {
+	this->gridSize = 9;
+	this->objectName = objectName;
+	this->rows = size;
+	this->grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
+	this->spotsHit = grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
+	this->ships.insert(Ship ship(4,"e","Aircraft Carrier",
+					Ship ship(4,"d","BattleShip"),
+					Ship ship(3,"b","Submarine"),
+					Ship ship(3,"c","cruiser"),
+					Ship ship(2,"a","destroyer")))
+}
 
-	private:
-		int rows;
-		string[][] grid;
-		string[][] spotsHit;
-		string objectName;
-		int gridSize;
-		set <Coordinate> potentialShots;
-		set <Coordinate> usedSpots;
-		set <int> shipShots;
-		set <Ship> ships;
-		int hitShip;
-		Coordinate hit;
-		Coordinate originalHit;
-		int movement;
-		bool manualPlayer;
-		string[][] addShip(Ship ship);
+Board::getName() {
+	return this->objectName;
+}
 
-	public:
-		Board(string objectName, int size);
-		string getName();
-		int getSize();
+Board::getSize() {
+	return this->rows;
+}
+
+Board::setName(string objectName) {
+	this->objectName = objectName;
+}
+
+/*
 		void setName();
 		string[][] getGrid();
 		string[][] getSpotsHit();
@@ -45,6 +45,7 @@ class Board{
 		void setManualPlayer();
 		bool getManualPlayer();
 		void addShips();
+		string[][] addShip(Ship ship);
 		int getRandomNumber(int min, int max);
 		set<Coordinate> selectPlaces(int left, int down, set<Coordinate> potentialPlace, int length, int angle);
 		string[][] placeShip(Ship ship, int shipX, int shipY, int posX, int posY, int length, string code, int angle);
@@ -54,4 +55,4 @@ class Board{
 		bool checkRemainingShips();
 		void markGrid(set<Coordinate> sectionsToMark);
 		void testSinkShip(string playerName);
-};
+	*/
