@@ -25,13 +25,29 @@ Board::setName(string objectName) {
 	this->objectName = objectName;
 }
 
+Board::getGrid() {
+	return this->grid;
+}
+
+Board::getSpotsHit() {
+	return this->spotsHit;
+}
+
+Board::getPotentialShots() {
+	return this->potentialShots;
+}
+
+Board::setPotentialShots(set<Coordinate> potentialShots) {
+ 	this->potentialShots = potentialShots;
+}
+
+Board::getShipShots() {
+	return this->shipShots;
+}
+
+
 /*
-		void setName();
-		string[][] getGrid();
-		string[][] getSpotsHit();
-		set<Coordinate> getPotentialShots();
-		void setPotentialShots(set<Coordinate> potentialShots);
-		set<int> getShipShots();
+
 		void setShipShots(set<Integer> shipShots);
 		void setHitShip(int hitShip);
 		int getHitShip();
