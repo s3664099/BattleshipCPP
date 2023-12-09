@@ -72,7 +72,30 @@ void ship_test() {
     board.setName("Mike");
     assert(board.getName() == "Mike");
 
-    
+    //Test the board grid
+    std::vector<std::vector<std::string>> grid = board.getGrid();
+    std::cout<<"Board"<<std::endl;
+
+    // Iterate through the 2D vector
+    for (const auto& row : grid) {
+        for (const auto& cell : row) {
+            std::cout << cell << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    //Test the spots hit grid
+    grid = board.getSpotsHit();
+    std::cout<<"Spots Hit"<<std::endl;
+
+    // Iterate through the 2D vector
+    for (const auto& row : grid) {
+        for (const auto& cell : row) {
+            std::cout << cell << " ";
+        }
+        std::cout << std::endl;
+    }    
+
 
 
 
