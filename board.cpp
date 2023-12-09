@@ -6,42 +6,42 @@ Board::Board(string objectName,int size) {
 	this->rows = size;
 	this->grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
 	this->spotsHit = grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
-	this->ships.insert(Ship ship(4,"e","Aircraft Carrier",
-					Ship ship(4,"d","BattleShip"),
-					Ship ship(3,"b","Submarine"),
-					Ship ship(3,"c","cruiser"),
-					Ship ship(2,"a","destroyer")))
+/*	this->ships.insert(ship(4,"e","Aircraft Carrier"));
+	this->ships.insert(ship(4,"d","BattleShip"));
+	this->ships.insert(ship(3,"b","Submarine"));
+	this->ships.insert(ship(3,"c","Cruiser"));
+	this->ships.insert(ship(2,"a","Destroyer"));*/
 }
 
-Board::getName() {
+string Board::getName() {
 	return this->objectName;
 }
 
-Board::getSize() {
+int Board::getSize() {
 	return this->rows;
 }
 
-Board::setName(string objectName) {
+void Board::setName(string objectName) {
 	this->objectName = objectName;
 }
 
-Board::getGrid() {
+std::vector<std::vector<std::string>> Board::getGrid() {
 	return this->grid;
 }
 
-Board::getSpotsHit() {
+std::vector<std::vector<std::string>> Board::getSpotsHit() {
 	return this->spotsHit;
 }
 
-Board::getPotentialShots() {
+set<Coordinate> Board::getPotentialShots() {
 	return this->potentialShots;
 }
 
-Board::setPotentialShots(set<Coordinate> potentialShots) {
+void Board::setPotentialShots(set<Coordinate> potentialShots) {
  	this->potentialShots = potentialShots;
 }
 
-Board::getShipShots() {
+set<int> Board::getShipShots() {
 	return this->shipShots;
 }
 

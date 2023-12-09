@@ -21,7 +21,7 @@ class Board{
 		Coordinate originalHit;
 		int movement;
 		bool manualPlayer;
-		string[][] addShip(Ship ship);
+		//string[][] addShip(Ship ship);
 		Ship checkShipHit(Coordinate coOrds, string playerName);
 		void removeShip(Ship shipToRemove);
 		bool checkRemainingShips();
@@ -32,12 +32,12 @@ class Board{
 		string getName();
 		int getSize();
 		void setName(string objectName);
-		string[][] getGrid();
-		string[][] getSpotsHit();
+		std::vector<std::vector<std::string>> getGrid();
+		std::vector<std::vector<std::string>> getSpotsHit();
 		set<Coordinate> getPotentialShots();
 		void setPotentialShots(set<Coordinate> potentialShots);
 		set<int> getShipShots();
-		void setShipShots(set<Integer> shipShots);
+		void setShipShots(set<int> shipShots);
 		void setHitShip(int hitShip);
 		int getHitShip();
 		void setHit(Coordinate hit);
@@ -52,7 +52,7 @@ class Board{
 		void addShips();
 		int getRandomNumber(int min, int max);
 		set<Coordinate> selectPlaces(int left, int down, set<Coordinate> potentialPlace, int length, int angle);
-		string[][] placeShip(Ship ship, int shipX, int shipY, int posX, int posY, int length, string code, int angle);
+		//string[][] placeShip(Ship ship, int shipX, int shipY, int posX, int posY, int length, string code, int angle);
 		int checkWhichShip(Coordinate coOrds, string playerName);
 		void testSinkShip(string playerName);
 };

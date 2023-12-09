@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "ship.cpp"
+#include "board.cpp"
 using namespace std;
 
 //TODO:
@@ -63,6 +63,16 @@ void ship_test() {
     // Test sunkShip()
     ship.sunkShip("Player1");
     assert(ship.getSunk() == true);
+
+    Board board("Fred",12);
+
+    //Test get name
+    assert(board.getName() == "Fred");
+    assert(board.getSize() == 12);
+    board.setName("Mike");
+    assert(board.getName() == "Mike");
+
+
 
     // Output success message if all assertions passed
     std::cout << "All test cases passed!" << std::endl;
