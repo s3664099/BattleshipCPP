@@ -6,11 +6,11 @@ Board::Board(string objectName,int size) {
 	this->rows = size;
 	this->grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
 	this->spotsHit = grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
-/*	this->ships.insert(ship(4,"e","Aircraft Carrier"));
-	this->ships.insert(ship(4,"d","BattleShip"));
-	this->ships.insert(ship(3,"b","Submarine"));
-	this->ships.insert(ship(3,"c","Cruiser"));
-	this->ships.insert(ship(2,"a","Destroyer"));*/
+	this->ships.emplace(4,"e","Aircraft Carrier");
+	this->ships.emplace(4,"d","BattleShip");
+	this->ships.emplace(3,"b","Submarine");
+	this->ships.emplace(3,"c","Cruiser");
+	this->ships.emplace(2,"a","Destroyer");
 }
 
 string Board::getName() {

@@ -11,7 +11,7 @@ int Ship::getLength() {
 	return this->length;
 }
 
-string Ship::getName() {
+string Ship::getName() const{
 	return this->name;
 }
 
@@ -84,6 +84,12 @@ void Ship::sunkShip(string playerName) {
 
 set<Coordinate> Ship::getCoordinates() {
 	return this->coordinates;
+}
+
+// Define the less-than operator
+bool Ship::operator<(const Ship& other) const {
+
+    return name < other.name;
 }
 
 

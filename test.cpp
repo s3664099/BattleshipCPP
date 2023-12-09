@@ -72,6 +72,8 @@ void ship_test() {
     board.setName("Mike");
     assert(board.getName() == "Mike");
 
+    
+
 
 
     // Output success message if all assertions passed
