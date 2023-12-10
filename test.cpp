@@ -94,9 +94,20 @@ void ship_test() {
             std::cout << cell << " ";
         }
         std::cout << std::endl;
-    }    
+    }
 
+    std::cout<<grid[2][2]<<std::endl;
 
+    grid[2][2] = "A";
+    grid[3][3] = "A";
+
+    // Iterate through the 2D vector
+    for (const auto& row : grid) {
+        for (const auto& cell : row) {
+            std::cout << cell << " ";
+        }
+        std::cout << std::endl;
+    }
 
 
     // Output success message if all assertions passed
