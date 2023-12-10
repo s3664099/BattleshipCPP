@@ -45,6 +45,56 @@ set<int> Board::getShipShots() {
 	return this->shipShots;
 }
 
+void Board::setShipShots(set<int> shipShots) {
+	this->shipShots = shipShots;
+}
+
+//Getters & Setters for the hits
+void Board::setHitShip(int hitShip) {
+	this->hitShip = hitShip;
+}
+
+int Board::getHitShip() {
+	return this->hitShip;
+}
+
+void Board::setHit(Coordinate hit) {
+	this->hit = hit;
+}
+
+Coordinate Board::getHit() {
+	return this->hit;
+}
+
+//Sets the movement the computer will go on if a ship has been his more than once
+void Board::setMovement(int movement) {
+	this->movement = movement;
+}
+
+int Board::getMovement() {
+	return this->movement;
+}
+
+void Board::setOriginalHit(Coordinate originalHit) {
+	this->originalHit = originalHit;
+}
+
+Coordinate Board::getOriginalHit() {
+	return this->originalHit;
+}
+
+set<Ship> Board::getShips() {
+	return this->ships;
+}
+
+void Board::setManualPlayer(){
+	this->manualPlayer = true;
+}
+
+bool Board::getManualPlayer(){
+	return this->manualPlayer;
+}
+
 
 /*
 

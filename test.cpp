@@ -72,7 +72,16 @@ void ship_test() {
     board.setName("Mike");
     assert(board.getName() == "Mike");
 
-    //Test the board grid
+    for (const auto& ship:board.getShips()) {
+        std::cout << ship.getName() << std::endl;
+    }
+
+    // Output success message if all assertions passed
+    std::cout << "All test cases passed!" << std::endl;
+}
+
+void board_test(Board board) {
+        //Test the board grid
     std::vector<std::vector<std::string>> grid = board.getGrid();
     std::cout<<"Board"<<std::endl;
 
@@ -109,7 +118,4 @@ void ship_test() {
         std::cout << std::endl;
     }
 
-
-    // Output success message if all assertions passed
-    std::cout << "All test cases passed!" << std::endl;
 }
