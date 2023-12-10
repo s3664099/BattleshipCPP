@@ -110,12 +110,54 @@ void Board::addShips() {
 void Board::addShip(Ship ship) {
 	int length = ship.getLength();
 	char code = ship.getLetter();
+
+	//Creates a set to hold the potential places the ship can be placed
+	set<Coordinate> potentialPlace;
+
+	//Selects a random angle for the ship (0 = Across, 1 = Down)
+	int angle = rand()%2;
+
+	//If the angle is vertical
+	int shipLenX = 0;
+	int shipLenY = length;
+	int posX = 0;
+	int posY = 1;
+
+	if (angle == 1) {
+		shipLenX = length;
+		shipLenY = 0;
+		posX = 1;
+		poxY = 0;
+	}
+
+	//Gets a list of potential places to place the ship
+	potentialPlace = selectPlaces(shipLenX,shipLenY,potentialPlace,length,angle);
+
+	//Checks if the size is 0, and if it is, builds the set from the other angle
+	if (potentialPlace.size()<1) {
+		potentialPlace = selectPlaces(shipLenY,shipLenX,potentialPlace,length,angle);
+	}
+
+	int number = rand()%potentialPlace.size();
+	int it = 0;
+	int shipX = 0;
+	int shipY = 0;
+
+	for (Coordinate place:potentialPlace) {
+		if (it == number) {
+			shipX = place.getX();
+			shipY = place.getY();
+		}
+		it ++;
+	}
+
+	placeShip(ship,shipX,shipY,poxX,posY,length,code,angle);
+
+
 }
 
 
 /*
-		string[][] addShip(Ship ship);
-		int getRandomNumber(int min, int max);
 		set<Coordinate> selectPlaces(int left, int down, set<Coordinate> potentialPlace, int length, int angle);
 		string[][] placeShip(Ship ship, int shipX, int shipY, int posX, int posY, int length, string code, int angle);
 		int checkWhichShip(Coordinate coOrds, string playerName);
