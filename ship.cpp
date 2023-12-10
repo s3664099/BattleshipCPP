@@ -1,6 +1,6 @@
 #include "ship.h"
 
-Ship::Ship(int length, string letter, string name) {
+Ship::Ship(int length, char letter, string name) {
 	this->length = length;
 	this->letter = letter;
 	this->name = name;
@@ -15,7 +15,7 @@ string Ship::getName() const{
 	return this->name;
 }
 
-string Ship::getLetter() {
+char Ship::getLetter() {
 	return this->letter;
 }
 

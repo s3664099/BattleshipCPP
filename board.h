@@ -21,7 +21,7 @@ class Board{
 		Coordinate originalHit;
 		int movement;
 		bool manualPlayer;
-		//string[][] addShip(Ship ship);
+		void addShip(Ship ship);
 		Ship checkShipHit(Coordinate coOrds, string playerName);
 		void removeShip(Ship shipToRemove);
 		bool checkRemainingShips();

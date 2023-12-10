@@ -24,13 +24,13 @@ int main() {
 void ship_test() {
 
     // Create a Ship object
-    Ship ship(3, "A", "Ship A");
+    Ship ship(3, 'A', "Ship A");
 
     // Test getLength()
     assert(ship.getLength() == 3);
 
     // Test getLetter()
-    assert(ship.getLetter() == "A");
+    assert(ship.getLetter() == 'A');
 
     // Test getName()
     assert(ship.getName() == "Ship A");
@@ -72,8 +72,9 @@ void ship_test() {
     board.setName("Mike");
     assert(board.getName() == "Mike");
 
-    for (const auto& ship:board.getShips()) {
+    for (Ship ship:board.getShips()) {
         std::cout << ship.getName() << std::endl;
+        printf("%s %d %c\n",ship.getName().c_str(),ship.getLength(),ship.getLetter());
     }
 
     // Output success message if all assertions passed

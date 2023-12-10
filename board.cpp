@@ -6,11 +6,11 @@ Board::Board(string objectName,int size) {
 	this->rows = size;
 	this->grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
 	this->spotsHit = grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
-	this->ships.emplace(4,"e","Aircraft Carrier");
-	this->ships.emplace(4,"d","BattleShip");
-	this->ships.emplace(3,"b","Submarine");
-	this->ships.emplace(3,"c","Cruiser");
-	this->ships.emplace(2,"a","Destroyer");
+	this->ships.emplace(4,'e',"Aircraft Carrier");
+	this->ships.emplace(4,'d',"BattleShip");
+	this->ships.emplace(3,'b',"Submarine");
+	this->ships.emplace(3,'c',"Cruiser");
+	this->ships.emplace(2,'a',"Destroyer");
 }
 
 string Board::getName() {
@@ -95,22 +95,25 @@ bool Board::getManualPlayer(){
 	return this->manualPlayer;
 }
 
+void Board::addShips() {
+
+	int code = 0;
+
+	//Goes through each of the ships and adds them to the board
+	for (Ship ship:this->ships) {
+		printf("%s %d %c/n",ship.getName().c_str(),ship.getLength(),ship.getLetter());
+		addShip(ship);
+		code++;
+	}
+}
+
+void Board::addShip(Ship ship) {
+	int length = ship.getLength();
+	char code = ship.getLetter();
+}
+
 
 /*
-
-		void setShipShots(set<Integer> shipShots);
-		void setHitShip(int hitShip);
-		int getHitShip();
-		void setHit(Coordinate hit);
-		Coordinate getHit();
-		void setMovement(int movement);
-		int getMovement();
-		void setOriginalHit(Coordinate originalHit);
-		Coordinate getOriginalHit();
-		set<Ship> getShips();
-		void setManualPlayer();
-		bool getManualPlayer();
-		void addShips();
 		string[][] addShip(Ship ship);
 		int getRandomNumber(int min, int max);
 		set<Coordinate> selectPlaces(int left, int down, set<Coordinate> potentialPlace, int length, int angle);

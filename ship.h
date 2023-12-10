@@ -7,16 +7,16 @@ class Ship {
 	
 	private:
 		int length;
-		string letter;
+		char letter;
 		string name;
 		bool sunk;
 		set <Coordinate> hitSections;
 		set <Coordinate> coordinates;
 
 	public:
-		Ship(int length, string letter, string name);
+		Ship(int length, char letter, string name);
 		int getLength();
-		string getLetter();
+		char getLetter();
 		string getName() const;
 		bool getSunk();
 		void addCoordinates(int xCoord, int yCoord, int incX, int incY, int length);
