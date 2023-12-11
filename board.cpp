@@ -1,16 +1,21 @@
 #include "board.h"
 
+//Create the potential hits in a set
+//Move into a list as pointer
+//Destroy the set afterwards
+
 Board::Board(string objectName,int size) {
 	this->gridSize = 9;
 	this->objectName = objectName;
 	this->rows = size;
 	this->grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
 	this->spotsHit = grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
-	this->ships.emplace(4,'e',"Aircraft Carrier");
-	this->ships.emplace(4,'d',"BattleShip");
-	this->ships.emplace(3,'b',"Submarine");
-	this->ships.emplace(3,'c',"Cruiser");
-	this->ships.emplace(2,'a',"Destroyer");
+
+	ships->emplace(4,'e',"Aircraft Carrier");
+	ships->emplace(4,'d',"BattleShip");
+	ships->emplace(3,'b',"Submarine");
+	ships->emplace(3,'c',"Cruiser");
+	ships->emplace(2,'a',"Destroyer");
 }
 
 string Board::getName() {
@@ -83,7 +88,7 @@ Coordinate Board::getOriginalHit() {
 	return this->originalHit;
 }
 
-set<Ship> Board::getShips() {
+set<Ship>* Board::getShips() {
 	return this->ships;
 }
 
@@ -100,7 +105,7 @@ void Board::addShips() {
 	int code = 0;
 
 	//Goes through each of the ships and adds them to the board
-	for (Ship ship:this->ships) {
+	for (Ship ship:*(this->ships)) {
 		printf("%s %d %c/n",ship.getName().c_str(),ship.getLength(),ship.getLetter());
 		addShip(ship);
 		code++;
@@ -127,7 +132,7 @@ void Board::addShip(Ship ship) {
 		shipLenX = length;
 		shipLenY = 0;
 		posX = 1;
-		poxY = 0;
+		posY = 0;
 	}
 
 	//Gets a list of potential places to place the ship
@@ -151,7 +156,7 @@ void Board::addShip(Ship ship) {
 		it ++;
 	}
 
-	placeShip(ship,shipX,shipY,poxX,posY,length,code,angle);
+	placeShip(ship,shipX,shipY,posX,posY,length,code,angle);
 
 
 }
