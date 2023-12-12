@@ -11,11 +11,12 @@ Board::Board(string objectName,int size) {
 	this->grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
 	this->spotsHit = grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
 
-	ships->emplace(4,'e',"Aircraft Carrier");
-	ships->emplace(4,'d',"BattleShip");
-	ships->emplace(3,'b',"Submarine");
-	ships->emplace(3,'c',"Cruiser");
-	ships->emplace(2,'a',"Destroyer");
+	
+	ships->push_back(Ship(4,'e',"Aircraft Carrier"));
+	ships->push_back(Ship(4,'d',"BattleShip"));
+	ships->push_back(Ship(3,'b',"Submarine"));
+	ships->push_back(Ship(3,'c',"Cruiser"));
+	ships->push_back(Ship(2,'a',"Destroyer"));
 }
 
 string Board::getName() {
@@ -88,7 +89,7 @@ Coordinate Board::getOriginalHit() {
 	return this->originalHit;
 }
 
-set<Ship>* Board::getShips() {
+vector<Ship>* Board::getShips() {
 	return this->ships;
 }
 

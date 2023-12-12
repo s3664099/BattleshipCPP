@@ -72,7 +72,9 @@ void ship_test() {
     board.setName("Mike");
     assert(board.getName() == "Mike");
 
-    for (Ship ship:board.getShips()) {
+    std::vector<Ship>* shipsPtr = board.getShips();
+
+    for (Ship ship:*shipsPtr) {
         std::cout << ship.getName() << std::endl;
         printf("%s %d %c\n",ship.getName().c_str(),ship.getLength(),ship.getLetter());
     }

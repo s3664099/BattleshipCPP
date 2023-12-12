@@ -15,7 +15,7 @@ class Board{
 		set <Coordinate> potentialShots;
 		set <Coordinate> usedSpots;
 		set <int> shipShots;
-		set <Ship>* ships;
+		std::vector <Ship>* ships;
 		int hitShip;
 		Coordinate hit;
 		Coordinate originalHit;
@@ -46,7 +46,7 @@ class Board{
 		int getMovement();
 		void setOriginalHit(Coordinate originalHit);
 		Coordinate getOriginalHit();
-		set<Ship>* getShips();
+		std::vector<Ship>* getShips();
 		void setManualPlayer();
 		bool getManualPlayer();
 		void addShips();

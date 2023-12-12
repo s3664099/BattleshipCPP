@@ -28,5 +28,4 @@ class Ship {
 
 	    // Define the less-than operator
 	    bool operator<(const Ship& other) const;	
-
 };
