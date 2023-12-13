@@ -52,7 +52,7 @@ class Board{
 		void addShips();
 		int getRandomNumber(int min, int max);
 		set<Coordinate> selectPlaces(int left, int down, set<Coordinate> potentialPlace, int length, int angle);
-		void placeShip(Ship ship, int shipX, int shipY, int posX, int posY, int length, char code, int angle);
+		void placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int length, char code, int angle);
 		int checkWhichShip(Coordinate coOrds, string playerName);
 		void testSinkShip(string playerName);
 };

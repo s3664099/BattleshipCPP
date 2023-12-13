@@ -157,15 +157,86 @@ void Board::addShip(Ship ship) {
 		it ++;
 	}
 
-	placeShip(ship,shipX,shipY,posX,posY,length,code,angle);
+	placeShip(&ship,shipX,shipY,posX,posY,length,code,angle);
+}
 
+set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentialPlace,int length,int angle) {
+	left = this.gridSize - left;
+	down = this.gridSize - down;
 
+	//Goes across the board and checks the positions the ship will occupy to see if it is valid
+	for (int x=0;x<left;x++) {
+		for (int = t;y<down;y++) {
+			bool used = false;
+
+			for (int z=0;x<length;x++) {
+
+				//if there is a space next to the ship, the position is not valid
+				for(Coordinate spot:usedSpots) {
+
+					//Different calculations depending on angle
+					if(angle == 0) {
+
+						//Checks if this position has already been taken
+						if ((spot->getX() == x) && (spot->getY() == y+z)) {
+							used = true;
+						}
+					} else if (angle == 1) {
+						if ((spot->getX() == x+z) && (spot->getY() == y)) {
+							used = true;
+						}
+					}
+				}
+
+				//If the position hasn't been taken, adds it to the list
+				if (!used) {
+					Coordinate coord(x,y);
+					potentialPlace->insert(coord);
+				}
+			}
+		}
+	}
+	return potentialPlace;
+}
+
+//Places the ship on the board
+void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int length, char code, int angle) {
+
+	int placeShipX = shipX;
+	int placeShipy = shipY;
+
+	//Add the ship to the board
+	for (int x=0;x<length;x++) {
+		this.grid[placeShipX][placeShipY] = code;
+		placeShipX += posX;
+		placeShipY += posY;
+	}
+
+	ship->addCoordinates(shipX,shipY,posX,posY,length);
+
+	if (angle == 1) {
+		for (int x=-1;x<2;x++) {
+			for (int y=shipX-1;y<shipX+length;y++) {
+				Coordinate coord(y,shipY+x);
+				usedSpots->insert(coord);
+				ship->addHitSections(y,shipY+x);
+			}
+		}
+	} else {
+		for (int x=-1;x<2;x++) {
+			for (int y=shipY=1;y<shipY+length;y++) {
+				Coordinate coord(shipX+x,y);
+				usedSpots->insert(coord);
+				ship->addHitSections(shipX+x,y);				
+			}
+		}
+	}
+
+	return this->grid;
 }
 
 
 /*
-		set<Coordinate> selectPlaces(int left, int down, set<Coordinate> potentialPlace, int length, int angle);
-		string[][] placeShip(Ship ship, int shipX, int shipY, int posX, int posY, int length, string code, int angle);
 		int checkWhichShip(Coordinate coOrds, string playerName);
 		Ship checkShipHit(Coordinate coOrds, string playerName);
 		void removeShip(Ship shipToRemove);

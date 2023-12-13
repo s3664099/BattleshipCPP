@@ -89,7 +89,10 @@ set<Coordinate> Ship::getCoordinates() {
 // Define the less-than operator
 bool Ship::operator<(const Ship& other) const {
 
-    return name < other.name;
+    if (length != other.length) {
+        return length < other.length;
+    }
+    return letter < other.letter;
 }
 
 
