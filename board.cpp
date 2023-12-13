@@ -161,12 +161,12 @@ void Board::addShip(Ship ship) {
 }
 
 set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentialPlace,int length,int angle) {
-	left = this.gridSize - left;
-	down = this.gridSize - down;
+	left = this->gridSize - left;
+	down = this->gridSize - down;
 
 	//Goes across the board and checks the positions the ship will occupy to see if it is valid
 	for (int x=0;x<left;x++) {
-		for (int = t;y<down;y++) {
+		for (int y= 0;y<down;y++) {
 			bool used = false;
 
 			for (int z=0;x<length;x++) {
@@ -178,11 +178,11 @@ set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentia
 					if(angle == 0) {
 
 						//Checks if this position has already been taken
-						if ((spot->getX() == x) && (spot->getY() == y+z)) {
+						if ((spot.getX() == x) && (spot.getY() == y+z)) {
 							used = true;
 						}
 					} else if (angle == 1) {
-						if ((spot->getX() == x+z) && (spot->getY() == y)) {
+						if ((spot.getX() == x+z) && (spot.getY() == y)) {
 							used = true;
 						}
 					}
@@ -191,7 +191,7 @@ set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentia
 				//If the position hasn't been taken, adds it to the list
 				if (!used) {
 					Coordinate coord(x,y);
-					potentialPlace->insert(coord);
+					potentialPlace.insert(coord);
 				}
 			}
 		}
@@ -203,11 +203,11 @@ set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentia
 void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int length, char code, int angle) {
 
 	int placeShipX = shipX;
-	int placeShipy = shipY;
+	int placeShipY = shipY;
 
 	//Add the ship to the board
 	for (int x=0;x<length;x++) {
-		this.grid[placeShipX][placeShipY] = code;
+		this->grid[placeShipX][placeShipY] = code;
 		placeShipX += posX;
 		placeShipY += posY;
 	}
@@ -218,7 +218,7 @@ void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int 
 		for (int x=-1;x<2;x++) {
 			for (int y=shipX-1;y<shipX+length;y++) {
 				Coordinate coord(y,shipY+x);
-				usedSpots->insert(coord);
+				usedSpots.insert(coord);
 				ship->addHitSections(y,shipY+x);
 			}
 		}
@@ -226,13 +226,11 @@ void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int 
 		for (int x=-1;x<2;x++) {
 			for (int y=shipY=1;y<shipY+length;y++) {
 				Coordinate coord(shipX+x,y);
-				usedSpots->insert(coord);
+				usedSpots.insert(coord);
 				ship->addHitSections(shipX+x,y);				
 			}
 		}
 	}
-
-	return this->grid;
 }
 
 
