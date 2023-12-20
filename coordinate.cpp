@@ -20,3 +20,13 @@ bool Coordinate::operator<(const Coordinate& other) const {
     }
     return y < other.y;
 }
+
+bool Coordinate::operator==(const Coordinate& other) const {
+
+    bool equal = false;
+
+    if ((x == other.x) && (y == other.y))
+        equal = true;
+
+    return equal;
+}

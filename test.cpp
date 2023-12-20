@@ -8,6 +8,7 @@ using namespace std;
 
 
 void ship_test();
+void board_test();
 
 int main() {
 
@@ -81,44 +82,67 @@ void ship_test() {
 
     // Output success message if all assertions passed
     std::cout << "All test cases passed!" << std::endl;
+
+    board_test();
 }
 
-void board_test(Board board) {
-        //Test the board grid
+void board_test() {
+    
+    //Test case 1: Initialisation and basic getters
+    Board board("Test Board", 10);
+    assert(board.getName() == "Test Board");
+    assert(board.getSize() == 10);
+
+    //Test case 2: Setters and getters for hits
+    board.setHitShip(42);
+    assert(board.getHitShip()== 42);
+
+    Coordinate hitCoordinate(2,3);
+    board.setHit(hitCoordinate);
+    assert(board.getHit() == hitCoordinate);
+
+    //Test case 3: Ships-related methods
+    board.addShips();
+    std::vector<Ship>* ships = board.getShips();
+    assert(ships->size()==5);
+
+    for (std::vector<std::string> rows:board.getGrid()) {
+        for (std::string cell:rows) {
+            std::cout<<cell;
+        }
+        std::cout<<std::endl;
+    }
+
+    //Test case 4: Check ship details
+    for(Ship ship:*ships) {
+        std::cout << "Ship: " << ship.getName() << " Length: " << ship.getLength() << " Letter: " << ship.getLetter() << std::endl;
+    }
+
+    // Test case 5: Board grid and spotsHit
     std::vector<std::vector<std::string>> grid = board.getGrid();
-    std::cout<<"Board"<<std::endl;
+    std::vector<std::vector<std::string>> spotsHit = board.getSpotsHit();
+    assert(grid.size() == 5);
+    assert(grid[0].size() == 5);
+    assert(spotsHit.size() == 5);
+    assert(spotsHit[0].size() == 5);
 
-    // Iterate through the 2D vector
-    for (const auto& row : grid) {
-        for (const auto& cell : row) {
-            std::cout << cell << " ";
-        }
-        std::cout << std::endl;
-    }
+    // Test case 6: Potential shots, ship shots, and manual player
+    set<Coordinate> potentialShots;
+    potentialShots.insert({1, 1});
+    potentialShots.insert({2, 2});
+    board.setPotentialShots(potentialShots);
+    assert(board.getPotentialShots() == potentialShots);
 
-    //Test the spots hit grid
-    grid = board.getSpotsHit();
-    std::cout<<"Spots Hit"<<std::endl;
+    set<int> shipShots;
+    shipShots.insert(3);
+    shipShots.insert(4);
+    board.setShipShots(shipShots);
+    assert(board.getShipShots() == shipShots);
 
-    // Iterate through the 2D vector
-    for (const auto& row : grid) {
-        for (const auto& cell : row) {
-            std::cout << cell << " ";
-        }
-        std::cout << std::endl;
-    }
+    board.setManualPlayer();
+    assert(board.getManualPlayer() == true);
 
-    std::cout<<grid[2][2]<<std::endl;
+    std::cout << "All board tests passed" <<std::endl;
 
-    grid[2][2] = "A";
-    grid[3][3] = "A";
-
-    // Iterate through the 2D vector
-    for (const auto& row : grid) {
-        for (const auto& cell : row) {
-            std::cout << cell << " ";
-        }
-        std::cout << std::endl;
-    }
 
 }

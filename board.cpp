@@ -1,16 +1,18 @@
 #include "board.h"
 
+//Change the cells for the board from string to char
 //Create the potential hits in a set
 //Move into a list as pointer
 //Destroy the set afterwards
 
 Board::Board(string objectName,int size) {
+
 	this->gridSize = 9;
 	this->objectName = objectName;
 	this->rows = size;
 	this->grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
 	this->spotsHit = grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
-
+	ships = new std::vector<Ship>();
 	
 	ships->push_back(Ship(4,'e',"Aircraft Carrier"));
 	ships->push_back(Ship(4,'d',"BattleShip"));
@@ -107,13 +109,14 @@ void Board::addShips() {
 
 	//Goes through each of the ships and adds them to the board
 	for (Ship ship:*(this->ships)) {
-		printf("%s %d %c/n",ship.getName().c_str(),ship.getLength(),ship.getLetter());
+		printf("%s %d %c\n",ship.getName().c_str(),ship.getLength(),ship.getLetter());
 		addShip(ship);
 		code++;
 	}
 }
 
 void Board::addShip(Ship ship) {
+
 	int length = ship.getLength();
 	char code = ship.getLetter();
 
@@ -161,6 +164,7 @@ void Board::addShip(Ship ship) {
 }
 
 set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentialPlace,int length,int angle) {
+
 	left = this->gridSize - left;
 	down = this->gridSize - down;
 
@@ -169,7 +173,7 @@ set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentia
 		for (int y= 0;y<down;y++) {
 			bool used = false;
 
-			for (int z=0;x<length;x++) {
+			for (int z=0;x<length;z++) {
 
 				//if there is a space next to the ship, the position is not valid
 				for(Coordinate spot:usedSpots) {
@@ -194,6 +198,7 @@ set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentia
 					potentialPlace.insert(coord);
 				}
 			}
+
 		}
 	}
 	return potentialPlace;

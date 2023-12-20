@@ -10,4 +10,5 @@ class Coordinate{
 		int getX();
 		int getY();
 		bool operator<(const Coordinate& other) const;
+		bool operator==(const Coordinate& other) const;
 };
