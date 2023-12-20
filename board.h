@@ -1,6 +1,7 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <ctime>
 #include "ship.cpp"
 using namespace std;
 

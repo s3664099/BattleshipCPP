@@ -147,6 +147,7 @@ void Board::addShip(Ship ship) {
 		potentialPlace = selectPlaces(shipLenY,shipLenX,potentialPlace,length,angle);
 	}
 
+	std::srand(std::time(0));
 	int number = rand()%potentialPlace.size();
 	int it = 0;
 	int shipX = 0;
