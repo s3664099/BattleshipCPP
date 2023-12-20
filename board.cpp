@@ -173,7 +173,7 @@ set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentia
 		for (int y= 0;y<down;y++) {
 			bool used = false;
 
-			for (int z=0;x<length;z++) {
+			for (int z=0;z<length;z++) {
 
 				//if there is a space next to the ship, the position is not valid
 				for(Coordinate spot:usedSpots) {
@@ -198,7 +198,6 @@ set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentia
 					potentialPlace.insert(coord);
 				}
 			}
-
 		}
 	}
 	return potentialPlace;
