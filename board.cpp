@@ -124,6 +124,7 @@ void Board::addShip(Ship ship) {
 	set<Coordinate> potentialPlace;
 
 	//Selects a random angle for the ship (0 = Across, 1 = Down)
+	std::srand(std::time(0));
 	int angle = rand()%2;
 
 	//If the angle is vertical
@@ -221,7 +222,7 @@ void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int 
 
 	if (angle == 1) {
 		for (int x=-1;x<2;x++) {
-			for (int y=shipX-1;y<shipX+length;y++) {
+			for (int y=shipX-1;y<shipX+length+1;y++) {
 				Coordinate coord(y,shipY+x);
 				usedSpots.insert(coord);
 				ship->addHitSections(y,shipY+x);
@@ -229,7 +230,7 @@ void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int 
 		}
 	} else {
 		for (int x=-1;x<2;x++) {
-			for (int y=shipY=1;y<shipY+length;y++) {
+			for (int y=shipY-1;y<shipY+length+1;y++) {
 				Coordinate coord(shipX+x,y);
 				usedSpots.insert(coord);
 				ship->addHitSections(shipX+x,y);				
