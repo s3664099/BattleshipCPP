@@ -6,6 +6,7 @@
 //Destroy the set afterwards
 
 Board::Board(string objectName,int size) {
+	std::srand(std::time(0));
 
 	this->gridSize = 9;
 	this->objectName = objectName;
@@ -124,7 +125,6 @@ void Board::addShip(Ship ship) {
 	set<Coordinate> potentialPlace;
 
 	//Selects a random angle for the ship (0 = Across, 1 = Down)
-	std::srand(std::time(0));
 	int angle = rand()%2;
 
 	//If the angle is vertical
@@ -143,12 +143,6 @@ void Board::addShip(Ship ship) {
 	//Gets a list of potential places to place the ship
 	potentialPlace = selectPlaces(shipLenX,shipLenY,potentialPlace,length,angle);
 
-	//Checks if the size is 0, and if it is, builds the set from the other angle
-	if (potentialPlace.size()<1) {
-		potentialPlace = selectPlaces(shipLenY,shipLenX,potentialPlace,length,angle);
-	}
-
-	std::srand(std::time(0));
 	int number = rand()%potentialPlace.size();
 	int it = 0;
 	int shipX = 0;
@@ -233,7 +227,7 @@ void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int 
 			for (int y=shipY-1;y<shipY+length+1;y++) {
 				Coordinate coord(shipX+x,y);
 				usedSpots.insert(coord);
-				ship->addHitSections(shipX+x,y);				
+				ship->addHitSections(shipX+x,y);
 			}
 		}
 	}
