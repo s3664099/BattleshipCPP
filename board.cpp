@@ -181,19 +181,21 @@ set<Coordinate> Board::selectPlaces(int left, int down, set<Coordinate> potentia
 						if ((spot.getX() == x) && (spot.getY() == y+z)) {
 							used = true;
 						}
+						
 					} else if (angle == 1) {
 						if ((spot.getX() == x+z) && (spot.getY() == y)) {
 							used = true;
 						}
 					}
 				}
-
-				//If the position hasn't been taken, adds it to the list
-				if (!used) {
-					Coordinate coord(x,y);
-					potentialPlace.insert(coord);
-				}
 			}
+
+			//If the position hasn't been taken, adds it to the list
+			if (!used) {
+				Coordinate coord(x,y);
+				potentialPlace.insert(coord);
+			}
+			
 		}
 	}
 	return potentialPlace;
