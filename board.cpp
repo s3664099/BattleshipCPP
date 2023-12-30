@@ -246,15 +246,15 @@ int Board::checkWhichShip(Coordinate coOrds, string playerName) {
 
 		//Marks off coordinates on board that was occupied by the ship
 		set <Coordinate> sectionsToMark = shipToRemove->getHitSections();
-//		markGrid(sectionsToMark);
+  		markGrid(sectionsToMark);
 		removeShip(shipToRemove);
 
 	}
 
 	//Checks if there are any ships left on the board
-//	if (checkRemainingShips()) {
-//		won = 3;
-//	}
+ 	if (checkRemainingShips()) {
+ 		won = 3;
+	}
 
 	return won;
 }
@@ -275,11 +275,63 @@ Ship* Board::checkShipHit(Coordinate coOrds, string playerName) {
 }
 
 void Board::removeShip(Ship* shipToRemove) {
-	//ships.remove(shipToRemove);
+	
+	int ship_no = 0;
+	int ship_key = -1;
+
+	for (Ship ship:*ships) {
+
+		if (ship.getName() == shipToRemove->getName()) {
+			ship_key = ship_no;
+		}
+		ship_no ++;
+	}
+
+	ships->erase(ships->begin()+ship_key);
+
 }
 
-/*		
-	bool checkRemainingShips();
-	void markGrid(set<Coordinate> sectionsToMark);
-	void testSinkShip(string playerName);
-*/
+bool Board::checkRemainingShips() {
+	bool noShips = false;
+
+	if (ships->size() == 0) {
+		noShips = true;
+	}
+
+	return noShips;
+}
+
+//Marks the sections of the grid the ship occupies as a hit
+void Board::markGrid(set<Coordinate> sectionsToMark) {
+
+	for (Coordinate mark:sectionsToMark) {
+		if ((mark.getX()>-1) && (mark.getX()<10)) {
+			if ((mark.getY()>-1) && (mark.getY()<10)) {
+				this->grid[mark.getX()][mark.getY()] = "0";
+				this->spotsHit[mark.getX()][mark.getY()] = "0";
+			}
+		}
+	}
+}
+
+void Board::testSinkShip(string playerName) {
+
+	//Creates a copy of the ship set
+	std::vector <Ship> copyShips = *ships;
+
+	//Goes through each of the ships
+	for (Ship ship:copyShips) {
+
+		//Gets co-ordinates of the ships
+		set<Coordinate> coords = ship.getCoordinates();
+		std::cout<<coords.size()<<std::endl;
+
+		std::cout<<std::endl;
+		std::cout<<ship.getName()<<" "<<ship.getLetter()<<std::endl;
+
+		for(Coordinate coord:coords) {
+			std::cout<<coord.getX()<<" "<<coord.getY()<<std::endl;
+			std::cout<<checkWhichShip(coord,playerName)<<std::endl;
+		}
+	}
+}

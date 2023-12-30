@@ -142,6 +142,8 @@ void board_test() {
     board.setManualPlayer();
     assert(board.getManualPlayer() == true);
 
+    board.testSinkShip("Fred");
+
     std::cout << "All board tests passed" <<std::endl;
 
 
