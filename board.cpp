@@ -245,8 +245,7 @@ int Board::checkWhichShip(Coordinate coOrds, string playerName) {
 		won = 2;
 
 		//Marks off coordinates on board that was occupied by the ship
-		set <Coordinate> sectionsToMark = shipToRemove->getHitSections();
-  		markGrid(sectionsToMark);
+  		markGrid(shipToRemove->getHitSections());
 		removeShip(shipToRemove);
 
 	}
@@ -261,12 +260,12 @@ int Board::checkWhichShip(Coordinate coOrds, string playerName) {
 
 Ship* Board::checkShipHit(Coordinate coOrds, string playerName) {
 
-	Ship* shipToRemove;
+	Ship* shipToRemove = nullptr;
 
 	for (Ship ship:*ships) {
 
 		if(ship.checkCoordinates(coOrds.getX(),coOrds.getY(),playerName)) {
-			shipToRemove = &ship;
+			shipToRemove = new Ship(ship);
 			ship.sunkShip(playerName);
 		}
 	}
@@ -302,9 +301,9 @@ bool Board::checkRemainingShips() {
 }
 
 //Marks the sections of the grid the ship occupies as a hit
-void Board::markGrid(set<Coordinate> sectionsToMark) {
+void Board::markGrid(set<Coordinate>* sectionsToMark) {
 
-	for (Coordinate mark:sectionsToMark) {
+	for (Coordinate mark:*sectionsToMark) {
 		if ((mark.getX()>-1) && (mark.getX()<10)) {
 			if ((mark.getY()>-1) && (mark.getY()<10)) {
 				this->grid[mark.getX()][mark.getY()] = "0";
@@ -316,22 +315,20 @@ void Board::markGrid(set<Coordinate> sectionsToMark) {
 
 void Board::testSinkShip(string playerName) {
 
-	//Creates a copy of the ship set
-	std::vector <Ship> copyShips = *ships;
+	std::vector <Ship>* copyShips = new std::vector <Ship>(*ships);
 
 	//Goes through each of the ships
-	for (Ship ship:copyShips) {
+	for (Ship ship:*copyShips) {
 
 		//Gets co-ordinates of the ships
-		set<Coordinate> coords = ship.getCoordinates();
-		std::cout<<coords.size()<<std::endl;
-
+		std::set<Coordinate>* coords = new std::set<Coordinate>(*ship.getCoordinates());
+	
 		std::cout<<std::endl;
 		std::cout<<ship.getName()<<" "<<ship.getLetter()<<std::endl;
 
-		for(Coordinate coord:coords) {
-			std::cout<<coord.getX()<<" "<<coord.getY()<<std::endl;
-			std::cout<<checkWhichShip(coord,playerName)<<std::endl;
+		for(Coordinate coord:*coords) {
+			checkWhichShip(coord,playerName);
 		}
+
 	}
 }

@@ -26,7 +26,7 @@ class Board{
 		Ship* checkShipHit(Coordinate coOrds, string playerName);
 		void removeShip(Ship* shipToRemove);
 		bool checkRemainingShips();
-		void markGrid(set<Coordinate> sectionsToMark);
+		void markGrid(set<Coordinate>* sectionsToMark);
 
 	public:
 		Board(string objectName, int size);

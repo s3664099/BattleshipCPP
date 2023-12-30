@@ -10,8 +10,8 @@ class Ship {
 		char letter;
 		string name;
 		bool sunk;
-		set <Coordinate> hitSections;
-		set <Coordinate> coordinates;
+		set <Coordinate>* hitSections;
+		set <Coordinate>* coordinates;
 
 	public:
 		Ship(int length, char letter, string name);
@@ -21,10 +21,10 @@ class Ship {
 		bool getSunk();
 		void addCoordinates(int xCoord, int yCoord, int incX, int incY, int length);
 		void addHitSections(int xCoord, int yCoord);
-		set<Coordinate> getHitSections();
+		set<Coordinate>* getHitSections();
 		bool checkCoordinates(int xCoord,int yCoord, string playername);
 		void sunkShip(string playername);
-		set<Coordinate> getCoordinates();
+		set<Coordinate>* getCoordinates();
 
 	    // Define the less-than operator
 	    bool operator<(const Ship& other) const;	

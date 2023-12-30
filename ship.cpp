@@ -5,6 +5,8 @@ Ship::Ship(int length, char letter, string name) {
 	this->letter = letter;
 	this->name = name;
 	this->sunk = false;
+	this->coordinates = new set<Coordinate>(); 
+	this->hitSections = new set<Coordinate>(); 
 }
 
 int Ship::getLength() {
@@ -27,8 +29,9 @@ bool Ship::getSunk() {
 void Ship::addCoordinates(int xCoord, int yCoord, int incX, int incY, int length) {
 
 	for (int x=0;x<length;x++) {
+
 		Coordinate coord(xCoord,yCoord);
-		this->coordinates.insert(coord);
+		this->coordinates->insert(coord);
 		xCoord += incX;
 		yCoord += incY;
 	}
@@ -37,10 +40,11 @@ void Ship::addCoordinates(int xCoord, int yCoord, int incX, int incY, int length
 //Adds a coordinate where the ship has been hit
 void Ship::addHitSections(int xCoord,int yCoord) {
 	Coordinate coord(xCoord,yCoord);
-	this->hitSections.insert(coord);
+	this->hitSections->insert(coord);
 }
 
-set<Coordinate> Ship::getHitSections() {
+set<Coordinate>* Ship::getHitSections() {
+
 	return this->hitSections;
 }
 
@@ -49,27 +53,32 @@ bool Ship::checkCoordinates(int xCoord,int yCoord, string playerName) {
 
 	bool sunk = false;
 	bool found = false;
-	Coordinate foundCoord;
+	int coord_cout = 0;
+	int coord_index = -1;
 
 	//Goes through the coordinates
-	for (Coordinate coord:this->coordinates) {
+	for (Coordinate coord:*coordinates) {
 
 		//If they are equal to the coordinates, marked as found
 		if (coord.getX() == xCoord && coord.getY() == yCoord) {
-			foundCoord = coord;
+			coord_index = coord_cout;
 			found = true;
 		}
+		coord_cout ++;
 	}
 
 	//If found, announces that the ship has been hit
 	//Also removes the coordinates from the set
 	if (found) {
-		this->coordinates.erase(foundCoord);
+
+	    auto it = this->coordinates->begin();
+	    std::advance(it, coord_index);
+	    this->coordinates->erase(it);		
 		cout << playerName << " hit the "<< this->name << "\n";
 	}
 
 	//Checks the size of the coordinate set. If 0 then the ship is sunk.
-	if (this->coordinates.size() == 0) {
+	if (this->coordinates->size() == 0) {
 		sunk = true;
 	}
 
@@ -82,7 +91,7 @@ void Ship::sunkShip(string playerName) {
 	cout << playerName << " sunk the "<<this->name << "\n";
 }
 
-set<Coordinate> Ship::getCoordinates() {
+set<Coordinate>* Ship::getCoordinates() {
 	return this->coordinates;
 }
 

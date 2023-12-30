@@ -46,15 +46,15 @@ void ship_test() {
     // let's assume ship is at (1, 1), (2, 1), (3, 1)
 
     // Test getCoordinates()
-    set<Coordinate> shipCoordinates = ship.getCoordinates();
-    assert(shipCoordinates.size() == 3); // Assuming (1, 1), (2, 1), (3, 1)
+    set<Coordinate>* shipCoordinates = ship.getCoordinates();
+    assert(shipCoordinates->size() == 3); // Assuming (1, 1), (2, 1), (3, 1)
 
     // Test addHitSections()
     ship.addHitSections(2, 1); // Assuming hitting the ship at (2, 1)
 
     // Test getHitSections()
-    set<Coordinate> hitSections = ship.getHitSections();
-    assert(hitSections.size() == 1); // Assuming (2, 1) has been hit
+    set<Coordinate>* hitSections = ship.getHitSections();
+    assert(hitSections->size() == 1); // Assuming (2, 1) has been hit
 
     // Test checkCoordinates()
     ship.checkCoordinates(1,1,"Player1");
