@@ -235,12 +235,51 @@ void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int 
 	}
 }
 
+//Checks which ship has been destroyed
+int Board::checkWhichShip(Coordinate coOrds, string playerName) {
 
-/*
-		int checkWhichShip(Coordinate coOrds, string playerName);
-		Ship checkShipHit(Coordinate coOrds, string playerName);
-		void removeShip(Ship shipToRemove);
-		bool checkRemainingShips();
-		void markGrid(set<Coordinate> sectionsToMark);
-		void testSinkShip(string playerName);
-	*/
+	Ship* shipToRemove = checkShipHit(coOrds, playerName);
+	int won = 1;
+
+	if (shipToRemove != nullptr) {
+		won = 2;
+
+		//Marks off coordinates on board that was occupied by the ship
+		set <Coordinate> sectionsToMark = shipToRemove->getHitSections();
+//		markGrid(sectionsToMark);
+		removeShip(shipToRemove);
+
+	}
+
+	//Checks if there are any ships left on the board
+//	if (checkRemainingShips()) {
+//		won = 3;
+//	}
+
+	return won;
+}
+
+Ship* Board::checkShipHit(Coordinate coOrds, string playerName) {
+
+	Ship* shipToRemove;
+
+	for (Ship ship:*ships) {
+
+		if(ship.checkCoordinates(coOrds.getX(),coOrds.getY(),playerName)) {
+			shipToRemove = &ship;
+			ship.sunkShip(playerName);
+		}
+	}
+
+	return shipToRemove;
+}
+
+void Board::removeShip(Ship* shipToRemove) {
+	//ships.remove(shipToRemove);
+}
+
+/*		
+	bool checkRemainingShips();
+	void markGrid(set<Coordinate> sectionsToMark);
+	void testSinkShip(string playerName);
+*/

@@ -23,8 +23,8 @@ class Board{
 		int movement;
 		bool manualPlayer;
 		void addShip(Ship ship);
-		Ship checkShipHit(Coordinate coOrds, string playerName);
-		void removeShip(Ship shipToRemove);
+		Ship* checkShipHit(Coordinate coOrds, string playerName);
+		void removeShip(Ship* shipToRemove);
 		bool checkRemainingShips();
 		void markGrid(set<Coordinate> sectionsToMark);
 
