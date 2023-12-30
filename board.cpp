@@ -109,14 +109,14 @@ void Board::addShips() {
 	int code = 0;
 
 	//Goes through each of the ships and adds them to the board
-	for (Ship ship:*(this->ships)) {
+	for (Ship& ship:*(this->ships)) {
 		printf("%s %d %c\n",ship.getName().c_str(),ship.getLength(),ship.getLetter());
 		addShip(ship);
 		code++;
 	}
 }
 
-void Board::addShip(Ship ship) {
+void Board::addShip(Ship& ship) {
 
 	int length = ship.getLength();
 	char code = ship.getLetter();
@@ -155,7 +155,6 @@ void Board::addShip(Ship ship) {
 		}
 		it ++;
 	}
-
 	placeShip(&ship,shipX,shipY,posX,posY,length,code,angle);
 }
 
@@ -233,6 +232,7 @@ void Board::placeShip(Ship* ship, int shipX, int shipY, int posX, int posY, int 
 			}
 		}
 	}
+
 }
 
 //Checks which ship has been destroyed
