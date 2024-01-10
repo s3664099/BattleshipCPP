@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include "board.cpp"
+#include "display.cpp"
 using namespace std;
 
 //TODO:
@@ -144,7 +145,7 @@ void board_test() {
 
     board.testSinkShip("Fred");
 
+    displayGrid(grid.size(),grid);
+
     std::cout << "All board tests passed" <<std::endl;
-
-
 }
