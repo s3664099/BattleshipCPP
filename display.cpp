@@ -61,3 +61,25 @@ void displayGrid(int rows, std::vector<std::vector<std::string>> user) {
 }
 
 //Display grids
+void displayGrids(int rows, std::vector<std::vector<std::string>> player, std::vector<std::vector<std::string>> computer) {
+	string lines = "";
+	string spaces = "             ";
+	lines = createLines(spaces);
+	lines = createLines(lines+spaces);
+	string numberLine = createNumbers(spaces)+createNumbers(spaces);
+
+	std::cout<<numberLine<<std::endl;
+	std::cout<<lines<<std::endl;
+
+	//displays the rows
+	for (std::vector<std::string> rows:user) {
+		string line = spaces+std::to_string(x)+"|";
+		line = displayLine(line,rows,spaces,x)+spaces;
+		line = line+to_string(x)+"|";
+		line = displayLine(line,computer,spaces,x);
+		x++;
+		std::cout<<line<<std::endl;		
+	}
+
+	std::cout<<lines<<std::endl;	
+}
