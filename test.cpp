@@ -146,6 +146,7 @@ void board_test() {
     board.testSinkShip("Fred");
 
     displayGrid(grid.size(),grid);
+    displayGrids(grid.size(),grid,grid);
 
     std::cout << "All board tests passed" <<std::endl;
 }

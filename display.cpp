@@ -67,16 +67,17 @@ void displayGrids(int rows, std::vector<std::vector<std::string>> player, std::v
 	lines = createLines(spaces);
 	lines = createLines(lines+spaces);
 	string numberLine = createNumbers(spaces)+createNumbers(spaces);
+	int x=0;
 
 	std::cout<<numberLine<<std::endl;
 	std::cout<<lines<<std::endl;
 
 	//displays the rows
-	for (std::vector<std::string> rows:user) {
+	for (std::vector<std::string> rows:player) {
 		string line = spaces+std::to_string(x)+"|";
 		line = displayLine(line,rows,spaces,x)+spaces;
 		line = line+to_string(x)+"|";
-		line = displayLine(line,computer,spaces,x);
+		line = displayLine(line,computer[x],spaces,x);
 		x++;
 		std::cout<<line<<std::endl;		
 	}
