@@ -5,6 +5,7 @@
 using namespace std;
 
 int getNumber(string query,int min, int max);
+void addShips(Board user,int num, int boardSize);
 
 int getNumber(string query,int min, int max) {
 
@@ -33,5 +34,31 @@ int getNumber(string query,int min, int max) {
 	}
 
 	return response;
+}
 
+//Process to add ships for a manual player
+void addShips(Board user,int num,int boardSize) {
+
+	std::vector<Ship>* = user.getShips();
+	user.setManualPlayer();
+
+	//Sets up the player's name
+	std::string playerNumber = "one";
+	if (num == 2) {
+		playerNumber = "two";
+	}
+	std::string userName = "";
+	std::cout<<"Please enter player "<<playerNumber<<"'s name: "
+	std::cin>>userName;
+
+	//Has the player entered a name?
+	if (userName.length()<1) {
+		if(num == 1) {
+			userName = "Nameless Player";
+		} else {
+			userName = "Player without a Name";
+		}
+	}
+
+	user.setName(userName);
 }
