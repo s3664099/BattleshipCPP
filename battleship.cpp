@@ -1,14 +1,14 @@
 #include <string>
 #include <vector>
+#include <iostream>
 #include "board.cpp"
-//#include "display.cpp"
+#include "display.cpp"
 #include "controller.cpp"
-
 using namespace std;
 
 int boardSize = 10;
 
-void battleship();
+void set_up();
 
 int main() {
 	set_up();
@@ -20,15 +20,15 @@ void set_up() {
 	int players = getNumber("Please enter the number of players (0,1,2)",0,2);
 
 	//Set up the boards
-	Board opponent01 = new Board("Marvin", boardSize);
-	Board opponent01 = new Board("Deep Thought", boardSize);
+	Board *opponent01 = new Board("Marvin", boardSize);
+	Board *opponent02 = new Board("Deep Thought", boardSize);
 
 	//Place the ships
 	if (players == 0) {
-		opponent01.addShips();
-		opponent02.addShips();
+		opponent01->addShips();
+		opponent02->addShips();
 	} else if (players == 1) {
-		opponent02.addShips();
+		opponent02->addShips();
 		addShips(opponent01,1,boardSize-1);
 	} else {
 		addShips(opponent01,1,boardSize-1);

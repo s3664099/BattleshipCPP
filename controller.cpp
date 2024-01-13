@@ -5,7 +5,7 @@
 using namespace std;
 
 int getNumber(string query,int min, int max);
-void addShips(Board user,int num, int boardSize);
+void addShips(Board *user,int num, int boardSize);
 
 int getNumber(string query,int min, int max) {
 
@@ -37,10 +37,10 @@ int getNumber(string query,int min, int max) {
 }
 
 //Process to add ships for a manual player
-void addShips(Board user,int num,int boardSize) {
+void addShips(Board *user,int num,int boardSize) {
 
-	std::vector<Ship>* = user.getShips();
-	user.setManualPlayer();
+	std::vector<Ship>* ships = user->getShips();
+	user->setManualPlayer();
 
 	//Sets up the player's name
 	std::string playerNumber = "one";
@@ -48,7 +48,7 @@ void addShips(Board user,int num,int boardSize) {
 		playerNumber = "two";
 	}
 	std::string userName = "";
-	std::cout<<"Please enter player "<<playerNumber<<"'s name: "
+	std::cout<<"Please enter player "<<playerNumber<<"'s name: ";
 	std::cin>>userName;
 
 	//Has the player entered a name?
@@ -60,5 +60,14 @@ void addShips(Board user,int num,int boardSize) {
 		}
 	}
 
-	user.setName(userName);
+	user->setName(userName);
+
+	//Process to add ships
+	for (Ship ship:*ships) {
+
+		//Creates a set to hold the potential places the ship can be placed
+		set<Coordinate> potentialPlace;
+
+		displayGrid(10,user->getGrid());
+	}
 }
