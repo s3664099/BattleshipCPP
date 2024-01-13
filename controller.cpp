@@ -6,6 +6,7 @@ using namespace std;
 
 int getNumber(string query,int min, int max);
 void addShips(Board *user,int num, int boardSize);
+int getAngle();
 
 int getNumber(string query,int min, int max) {
 
@@ -69,5 +70,42 @@ void addShips(Board *user,int num,int boardSize) {
 		set<Coordinate> potentialPlace;
 
 		displayGrid(10,user->getGrid());
+
+		std::cout<<"Placing the "<<ship->getName()<<std::endl;
+		int length = ship->getLength();
+
+		//If the angle is vertical
+		int shipLenX = 0;
+		int shipLenY = length;
+		int posX = 0;
+		int posY = 1;
+
+		int angle = getAngle();
+
+		if (angle == 1) {
+			shipLenX = length;
+			shipLenY = 0;
+			posX = 1;
+			posY = 0;
+		}
+
+		//Generates a list of potential places
+		potentialPlace = user->selectPlaces(shipLenX,shipLenY,potentialPlace,length,angle);
+		bool allowable = false;
+
+		while (!allowable) {
+			int yPos = getNumber("Enter the x position: ",0,boardSize);
+			int xPos = getNumber("Enter the y position: ",0,boardSize);
+		}
+
+		//Checks if the position is one of the potential places
 	}
+}
+
+int getAngle() {
+
+	std::cout<<"Please enter the angle"<<std::endl;
+	std::cout<<"0) Across"<<std::endl;
+	std::cout<<"1) Down"<<std::endl;
+	return getNumber("",0,1);
 }
