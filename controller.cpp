@@ -71,8 +71,9 @@ void addShips(Board *user,int num,int boardSize) {
 
 		displayGrid(10,user->getGrid());
 
-		std::cout<<"Placing the "<<ship->getName()<<std::endl;
-		int length = ship->getLength();
+		std::cout<<"Placing the "<<ship.getName()<<std::endl;
+		int length = ship.getLength();
+		char code = ship.getLetter();
 
 		//If the angle is vertical
 		int shipLenX = 0;
@@ -94,11 +95,38 @@ void addShips(Board *user,int num,int boardSize) {
 		bool allowable = false;
 
 		while (!allowable) {
-			int yPos = getNumber("Enter the x position: ",0,boardSize);
-			int xPos = getNumber("Enter the y position: ",0,boardSize);
+			int yPos = getNumber("Enter the x position",0,boardSize);
+			int xPos = getNumber("Enter the y position",0,boardSize);
+
+			//Checks if the position is one of the potential places
+			for (Coordinate place:potentialPlace) {
+				if ((place.getX() == xPos) && (place.getY() == yPos)) {
+					allowable = true;
+				}
+			}
+
+			//If it isn't display potential places
+			if (!allowable) {
+				std::cout<<"You cannot place the "<<ship.getName()<<" there"<<std::endl;
+				std::cout<<"Allowable places"<<std::endl;
+
+				for (Coordinate place:potentialPlace) {
+					std::cout<<place.getY()<<" "<<place.getX()<<std::endl;
+				} 
+			} else {
+				user->placeShip(&ship,xPos,yPos,posX,posY,length,code,angle);
+			}
 		}
 
-		//Checks if the position is one of the potential places
+		std::cout<<"Press enter to continue";
+
+		// Ignore any remaining characters in the input buffer
+    	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		
+		// Read a single character (Enter key)
+    	char enter;
+    	std::cin.get(enter);
+    	std::cout<<std::endl;
 	}
 }
 
