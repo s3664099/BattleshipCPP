@@ -8,11 +8,16 @@
 #include "controller.cpp"
 using namespace std;
 
+//controller -> Fire Shot
+//Action
+
 int boardSize = 10;
+bool skipTurn = false;
 
 void set_up();
 void start_game(Board *opponent01,Board *opponent02 ,int players);
 void showGrid(int boardSize,Board *firstShot,Board *secondShot, Board* opponent01,Board* opponent02, int players);
+int turn(Board *defender, Board* attacker);
 
 int main() {
 	set_up();
@@ -47,7 +52,6 @@ void start_game(Board *opponent01,Board *opponent02,int players) {
 
 	std::srand(std::time(0));
 	int result = 1;
-	bool skipTurn = false;
 	int goFirst = rand()%2;
 	Board *firstShot;
 	Board *secondShot;
@@ -70,44 +74,33 @@ void start_game(Board *opponent01,Board *opponent02,int players) {
 	std::cout<<firstShot->getName()<<" goes first"<<std::endl;
 
 	showGrid(boardSize,firstShot,secondShot,opponent01,opponent02,players);
-}
-	/*
 
-		System.out.printf("%s goes first%n",firstShot.getName());
-		
-		showGrid(boardSize,firstShot,secondShot,players);
-		
-		while (result != 3) {
-			
-			turns += 1;
-			
-			//Sleeps for 2 seconds
-			try {
-				TimeUnit.SECONDS.sleep(2);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			result = turn(firstShot,secondShot);
-			
-			if (result !=3) {
-				
-				if (players == 2) {
-					display.displayGrids(boardSize,firstShot.getGrid(),secondShot.getSpotsHit());
-				}
-				
-				result = turn(secondShot,firstShot);
-			}
-			
-			showGrid(boardSize,firstShot,secondShot,players);
-			
-			if (result == 3) {
-				System.out.printf("Game over in %s turns%n",turns);
-			}			
-		}
+	while (result != 3) {
+
+		turns += 1;
+
+		//Sleeps for 2 seconds
+	    std::chrono::seconds dura( 2);
+	    std::this_thread::sleep_for( dura );
+
+	    result = turn(firstShot,secondShot, skipTurn);
+
+	    if (result != 3) {
+	    	if (players == 2) {
+	    		displayGrids(boardSize,firstShot.getGrid(),secondShot.getSpotsHit());
+	    	}
+
+	    	result = turn(secondShot,firstShot);
+	    }
+
+	    showGrid(boardSize,firstShot,secondShot,players);
+
+	    if (result == 3) {
+	    	std::cout<<"Game over in "<<turns<<" turns"<<std::endl;
+	    }
 	}
-	*/
+
+}
 
 void showGrid(int boardSize,Board *firstShot,Board *secondShot,Board *opponent01,Board* opponent02, int players) {
 
@@ -126,36 +119,32 @@ void showGrid(int boardSize,Board *firstShot,Board *secondShot,Board *opponent01
 	}
 }
 
-	/*		
-	private int turn(Board defender, Board attacker) {
-		
-		result = 0;
-		
-		if (!skipTurn) {
-			System.out.printf("%s's Shot%n",attacker.getName());
-			
-			//Checks whether a manual player or not, and if not calls the algorith
-			if (attacker.getManualPlayer()) {
-				result = controller.fireShot(defender,attacker,boardSize);
-			} else {
-				result = action.fire(defender,attacker);
-			}
-		}
-		
-		skipTurn = false;
-		
-		//Checks if the shot was a hit, and sets the skip turn flag
-		if (result != 0) {
-			skipTurn = true;
-		}
-		
-		//Checks for a win conditions
-		if (result == 3) {
-			System.out.printf("%s has won%n",attacker.getName());
-		}
-		
-		return result;
-	}
-}
+int turn(Board* defender, Board* attacker) {
 
-	*/
+	int result = 0;
+
+	if (!skipTurn) {
+		std::cout<<attacker->getName()<<"'s Shot"<<std::endl;
+
+		//Checks whether manual player or not, and if not calls the algorithm
+		if (attacker->getManualPlayer()) {
+			result = fireShot(defender,attacker,boardSize);
+		} else {
+			fire(defender,attacker);
+		}
+	}
+
+	skipTurn = false;
+
+	//Checks if the shot was a hit, and sets the skip turn flag
+	if (result != 0) {
+		skipTurn = true;
+	}
+
+	//Checks for win conditions
+	if (result != 0) {
+		std::cout<<attacker.getName()<<" has won."<<std::endl;
+	}
+
+	return result;
+}

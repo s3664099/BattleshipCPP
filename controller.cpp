@@ -7,6 +7,7 @@ using namespace std;
 int getNumber(string query,int min, int max);
 void addShips(Board *user,int num, int boardSize);
 int getAngle();
+int fireShot(Board* defender, Board* attacker, int boardSize);
 
 int getNumber(string query,int min, int max) {
 
