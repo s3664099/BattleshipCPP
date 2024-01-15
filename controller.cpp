@@ -167,7 +167,7 @@ int fireShot(Board* defender, Board* attacker, int boardSize) {
 
 		//Determines which ship has been hit, and whether it has been sunk
 		if (win == 1) {
-			Coordinate* coord = new Coordinate(xCoord,yCoord);
+			Coordinate coord(xCoord,yCoord);
 			win = defender->checkWhichShip(coord,attacker->getName());
 		}
 

@@ -6,6 +6,7 @@
 #include "board.cpp"
 #include "display.cpp"
 #include "controller.cpp"
+#include "action.cpp"
 using namespace std;
 
 //Action
@@ -16,7 +17,7 @@ bool skipTurn = false;
 void set_up();
 void start_game(Board *opponent01,Board *opponent02 ,int players);
 void showGrid(int boardSize,Board *firstShot,Board *secondShot, Board* opponent01,Board* opponent02, int players);
-int turn(Board *defender, Board* attacker);
+int turn(Board *defender, Board* attacker,bool skipTurn);
 
 int main() {
 	set_up();
@@ -90,7 +91,7 @@ void start_game(Board *opponent01,Board *opponent02,int players) {
 	    		displayGrids(boardSize,firstShot->getGrid(),secondShot->getSpotsHit());
 	    	}
 
-	    	result = turn(secondShot,firstShot);
+	    	result = turn(secondShot,firstShot,skipTurn);
 	    }
 
 	    showGrid(boardSize,firstShot,secondShot,opponent01,opponent02,players);
@@ -119,7 +120,7 @@ void showGrid(int boardSize,Board *firstShot,Board *secondShot,Board *opponent01
 	}
 }
 
-int turn(Board* defender, Board* attacker) {
+int turn(Board* defender, Board* attacker,bool skipTurn) {
 
 	int result = 0;
 
