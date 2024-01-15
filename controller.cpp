@@ -146,53 +146,35 @@ int fireShot(Board* defender, Board* attacker, int boardSize) {
 
 		std::vector<std::vector<std::string>>* spotsHot = defender->getSpotsHit();
 		std::vector<std::vector<std::string>>* grid = defender->getGrid();
+
+		//Checks if the player has already fired there
+		if (((*grid)[xCoord][yCoord] == "0") || ((*grid)[xCoord][yCoord] == "X")) {
+			cout<<"You have already fired a shot there"<<endl;
+
+		//Hits an empty section
+		} else if ((*grid)[xCoord][yCoord] == ".") {
+			(*grid)[xCoord][yCoord] = "0";
+			(*spotsHot)[xCoord][yCoord] = "0";
+			alreadyHit = true;
+
+		//Hits occupied section
+		} else {
+			win = 1;
+			(*grid)[xCoord][yCoord] = "X";
+			(*spotsHot)[xCoord][yCoord] = "X";
+			alreadyHit = true;
+		}
+
+		//Determines which ship has been hit, and whether it has been sunk
+		if (win == 1) {
+			Coordinate* coord = new Coordinate(xCoord,yCoord);
+			win = defender->checkWhichShip(coord,attacker->getName());
+		}
+
 	}
 
 	return win;	
 }
-
-/*
-public int fireShot(Board defender, Board attacker, int boardSize) {
-		
-		boolean alreadyHit = false;
-		
-		//Sets the win flag
-		int win = 0;
-		
-		while (!alreadyHit) {
-			
-			//Gets player's shot
-			int xCoord = getNumber("Select Row: ",0,boardSize);
-			int yCoord = getNumber("Select Column: ",0,boardSize);
-			String[][] spotsHit = defender.getSpotsHit();
-			String[][] grid = defender.getGrid();
-			
-			//Checks if the player has already fired there
-			if ((grid[xCoord][yCoord] == "0") || (grid[xCoord][yCoord] == "X")) {
-				System.out.println("You have already fired a shot there");
-
-			//Hits empty section
-			} else if (grid[xCoord][yCoord] == ".") {
-				grid[xCoord][yCoord] = "0";
-				spotsHit[xCoord][yCoord] = "0";
-				alreadyHit = true;
-
-			//Hits occupied section
-			} else {
-				win = 1;
-				grid[xCoord][yCoord] = "X";
-				spotsHit[xCoord][yCoord] = "X";
-				alreadyHit = true;
-			}
-			
-			//Determines which ship has been hit, and whether it has been sunk
-			if (win == 1) {
-				win = defender.checkWhichShip(new Coordinate(xCoord,yCoord),attacker.getName());
-			}
-		}
-		return win;
-	}
-*/
 
 int getAngle() {
 

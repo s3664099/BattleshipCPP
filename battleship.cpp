@@ -52,6 +52,7 @@ void start_game(Board *opponent01,Board *opponent02,int players) {
 	std::srand(std::time(0));
 	int result = 1;
 	int goFirst = rand()%2;
+	int turns = 0;
 	Board *firstShot;
 	Board *secondShot;
 
@@ -86,13 +87,13 @@ void start_game(Board *opponent01,Board *opponent02,int players) {
 
 	    if (result != 3) {
 	    	if (players == 2) {
-	    		displayGrids(boardSize,firstShot.getGrid(),secondShot.getSpotsHit());
+	    		displayGrids(boardSize,firstShot->getGrid(),secondShot->getSpotsHit());
 	    	}
 
 	    	result = turn(secondShot,firstShot);
 	    }
 
-	    showGrid(boardSize,firstShot,secondShot,players);
+	    showGrid(boardSize,firstShot,secondShot,opponent01,opponent02,players);
 
 	    if (result == 3) {
 	    	std::cout<<"Game over in "<<turns<<" turns"<<std::endl;
@@ -142,7 +143,7 @@ int turn(Board* defender, Board* attacker) {
 
 	//Checks for win conditions
 	if (result != 0) {
-		std::cout<<attacker.getName()<<" has won."<<std::endl;
+		std::cout<<attacker->getName()<<" has won."<<std::endl;
 	}
 
 	return result;
