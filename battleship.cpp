@@ -8,7 +8,6 @@
 #include "controller.cpp"
 using namespace std;
 
-//controller -> Fire Shot
 //Action
 
 int boardSize = 10;

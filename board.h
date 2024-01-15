@@ -33,8 +33,8 @@ class Board{
 		string getName();
 		int getSize();
 		void setName(string objectName);
-		std::vector<std::vector<std::string>> getGrid();
-		std::vector<std::vector<std::string>> getSpotsHit();
+		std::vector<std::vector<std::string>>* getGrid();
+		std::vector<std::vector<std::string>>* getSpotsHit();
 		set<Coordinate> getPotentialShots();
 		void setPotentialShots(set<Coordinate> potentialShots);
 		set<int> getShipShots();

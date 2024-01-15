@@ -107,7 +107,7 @@ void board_test() {
     std::vector<Ship>* ships = board.getShips();
     assert(ships->size()==5);
 
-    for (std::vector<std::string> rows:board.getGrid()) {
+    for (std::vector<std::string> rows:*board.getGrid()) {
         for (std::string cell:rows) {
             std::cout<<cell;
         }
@@ -120,12 +120,15 @@ void board_test() {
     }
 
     // Test case 5: Board grid and spotsHit
-    std::vector<std::vector<std::string>> grid = board.getGrid();
-    std::vector<std::vector<std::string>> spotsHit = board.getSpotsHit();
-    assert(grid.size() == 10);
-    assert(grid[0].size() == 10);
-    assert(spotsHit.size() == 10);
-    assert(spotsHit[0].size() == 10);
+    std::vector<std::vector<std::string>>* grid = board.getGrid();
+    std::vector<std::vector<std::string>>* spotsHit = board.getSpotsHit();
+
+    std::vector<std::vector<std::string>> grid_2 = *grid;
+
+    assert(grid->size() == 10);
+    assert((*grid)[0].size() == 10);
+    assert(spotsHit->size() == 10);
+    assert((*spotsHit)[0].size() == 10);
 
     // Test case 6: Potential shots, ship shots, and manual player
     set<Coordinate> potentialShots;
@@ -145,8 +148,11 @@ void board_test() {
 
     board.testSinkShip("Fred");
 
-    displayGrid(grid.size(),grid);
-    displayGrids(grid.size(),grid,grid);
+    displayGrid(grid->size(),&grid_2);
+    displayGrids(grid->size(),&grid_2,&grid_2);
+
+    displayGrid(grid->size(),grid);
+    displayGrids(grid->size(),grid,grid);    
 
     std::cout << "All board tests passed" <<std::endl;
 }

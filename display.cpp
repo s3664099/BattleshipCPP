@@ -36,7 +36,7 @@ string createNumbers(string spaces) {
 }
 
 //displays a single grid
-void displayGrid(int rows, std::vector<std::vector<std::string>> user) {
+void displayGrid(int rows, std::vector<std::vector<std::string>>* user) {
 
 	string spaces = "             ";
 	string lines = createLines(spaces);
@@ -50,7 +50,7 @@ void displayGrid(int rows, std::vector<std::vector<std::string>> user) {
 
 	//Cycles through each of the rows and adds a number and edges
 	//displays the rows
-	for (std::vector<std::string> rows:user) {
+	for (std::vector<std::string> rows:*user) {
 		string line = spaces+std::to_string(x)+"|";
 		line = displayLine(line,rows,spaces,x);
 		x++;
@@ -61,7 +61,9 @@ void displayGrid(int rows, std::vector<std::vector<std::string>> user) {
 }
 
 //Display grids
-void displayGrids(int rows, std::vector<std::vector<std::string>> player, std::vector<std::vector<std::string>> computer) {
+void displayGrids(int rows, std::vector<std::vector<std::string>>* player, 
+				  std::vector<std::vector<std::string>>* computer) {
+
 	string lines = "";
 	string spaces = "             ";
 	lines = createLines(spaces);
@@ -73,11 +75,11 @@ void displayGrids(int rows, std::vector<std::vector<std::string>> player, std::v
 	std::cout<<lines<<std::endl;
 
 	//displays the rows
-	for (std::vector<std::string> rows:player) {
+	for (std::vector<std::string> rows:*player) {
 		string line = spaces+std::to_string(x)+"|";
 		line = displayLine(line,rows,spaces,x)+spaces;
 		line = line+to_string(x)+"|";
-		line = displayLine(line,computer[x],spaces,x);
+		line = displayLine(line,(*computer)[x],spaces,x);
 		x++;
 		std::cout<<line<<std::endl;		
 	}

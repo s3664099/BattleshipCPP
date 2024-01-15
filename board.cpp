@@ -34,12 +34,13 @@ void Board::setName(string objectName) {
 	this->objectName = objectName;
 }
 
-std::vector<std::vector<std::string>> Board::getGrid() {
-	return this->grid;
+std::vector<std::vector<std::string>>* Board::getGrid() {
+
+	return &grid;
 }
 
-std::vector<std::vector<std::string>> Board::getSpotsHit() {
-	return this->spotsHit;
+std::vector<std::vector<std::string>>* Board::getSpotsHit() {
+	return &spotsHit;
 }
 
 set<Coordinate> Board::getPotentialShots() {
