@@ -131,7 +131,7 @@ int turn(Board* defender, Board* attacker,bool skipTurn) {
 		if (attacker->getManualPlayer()) {
 			result = fireShot(defender,attacker,boardSize);
 		} else {
-			fire(defender,attacker);
+			result = fire(defender,attacker);
 		}
 	}
 
