@@ -20,8 +20,6 @@ int fire(Board* defender, Board* attacker) {
 		originalHit = hit;
 		std::set<int> shipShots = defender->getShipShots();
 
-		std::cout<<shipShots.size()<<std::endl;
-
 		//Selects a shot and removes it from the list
 		int shotSelected = rand()%shipShots.size()-1;
 		std::vector<int> shstList(shipShots.begin(),shipShots.end());
@@ -32,85 +30,79 @@ int fire(Board* defender, Board* attacker) {
 		for (int remainShots:shstList) {
 			shipShots.insert(remainShots);
 		}
-	} 
+
+		defender->setShipShots(shipShots);
+		defender->setMovement(selectShot);
+		shot = getNextShot(selectShot,hit);
+
+		//checks to see if there is anything left in potential shots
+		if(potentialShots.size()>0) {
+			potentialShots = removeShot(potentialShots,shot);
+		}
+
+	//The shipt has been hit more than once
+	} else if (hitShip ==2) {
+
+		//Retrieves the next shot
+		Set<int> shipShots = defender->getShipShots();
+		Coordinate hit = defender.getHit();
+		selectShot = defender->getMovement();
+		shot = getNextShot(selectShot,hit);
+
+		//Checks to see if there is anything left in potential shots
+		if (potentialShots.size()>0) {
+			potentialShots = removeShot(potentialShots,shot);
+		}
+	} else {
+
+		//Otherwise selects a random shot from the list of potential shots
+		int shotSelected = rand()%potentialShots.size()-1;
+
+		vector<Coordinate> ptshList(potentialShots);
+
+		if (potentialShots.size()>0) {
+			potentialShots = removeShot(potentialShots,shot);
+		}
+	}
+
+	attacker->setPotentialShots(potentialShots);
+
+	char hitPosition = '0';
+
+	std::cout<<"Shot fired at: "<<shot.getX()<<","<<shot.getY()<<std::endl;
+
+	//Has this empty spot already been hit
+	if ((grid*)[shot.getX()][shot.getY()] == "0") {
+		(grid*)[shot.getX()][shot.getY()] == ".";
+	}
+
+	if ((grid*)[shot.getX()][shot.getY()] != ".") {
+		
+		//Marks it as a ship
+		hitPosition = "X";
+
+		//Sets the flag that a ship has been hit and checks if it has been sunk
+		defender->hitShip(shot);
+		hitResult = defender->checkWhichShip(shot,attacker->getName());
+
+		std::cout<<"Hit result "<<hitResult<<std::endl;
+
+		if (hitShip == 0) {
+			defender->setHitShip(1);
+			Set<int> shipShots = checkShitShots(potentialShots,shot,defender);
+			defender->setShipShots(shipShots);
+		}
+
+		//If it has, sets it that it has been hit more than once
+	}	
+
 
 	/*
 	public int fire(Board defender, Board attacker) {
 		
-
-		
-		//Has the ship already been hit
-		if (hitShip == 1) {
-
-			
-			defender.setShipShots(shipShots);
-			
-			defender.setMovement(selectShot);
-			
-			shot = getNextShot(selectShot,hit);
-			
-			//Checks to see if there is anything left in potential shots
-			if (potentialShots.size()>0) {
-				potentialShots = removeShot(potentialShots,shot);
-			}
-			
-		//The ship has been hit more than once
-		} else if (hitShip == 2) {
-			
-			//Retrieves the next shot
-			Set<Integer> shipShots = defender.getShipShots();
-			Coordinate hit = defender.getHit();
-			selectShot = defender.getMovement();
-			shot = getNextShot(selectShot,hit);
-			
-			//Checks to see if there is anything left in potential shots
-			if (potentialShots.size()>0) {
-				potentialShots = removeShot(potentialShots,shot);
-			}			
-			
-		} else {
-			
-			//Otherwise selects a random shot from the list of potential shots
-			int shotSelected = attacker.getRandomNumber(0,potentialShots.size()-1);
-			
-			List<Coordinate> ptshList = new ArrayList<Coordinate>(potentialShots);
-			shot = ptshList.get(shotSelected);
-			
-			if (potentialShots.size()>0) {
-				potentialShots = removeShot(potentialShots,shot);
-			}
-		}
-		
-		attacker.setPotentialShots(potentialShots);
-		
-		String hitPosition = "0";
-		
-		System.out.printf("Shot fired at: %s,%s%n",shot.getX(),shot.getY());
-		
-		//Has this empty spot already been hit?
-		if (grid[shot.getX()][shot.getY()] == "0") {
-			grid[shot.getX()][shot.getY()] = ".";
-		}
-		
 		//The spot isn't empty
 		if (grid[shot.getX()][shot.getY()] != ".") {
-			
-			//Marks it as a ship
-			hitPosition = "X";
-			
-			//Sets the flag that a ship has been hit and checks if it has been sunk
-			defender.setHit(shot);
-			hitResult = defender.checkWhichShip(shot,attacker.getName());
-			
-			System.out.printf("Hit result %s%n",hitResult);
-			
-			//If a ship wasn't hit previously, sets the flag
-			if (hitShip == 0) {
-				defender.setHitShip(1);
-				Set<Integer> shipShots = checkShipShots(potentialShots,shot,defender);
-				defender.setShipShots(shipShots);
-			}
-			
+									
 			//If it has, sets it that it has been hit more than once
 			if (hitShip == 1) {
 				defender.setHitShip(2);
