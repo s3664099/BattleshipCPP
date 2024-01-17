@@ -94,6 +94,26 @@ int fire(Board* defender, Board* attacker) {
 		}
 
 		//If it has, sets it that it has been hit more than once
+		if (hitShip == 1) {
+			defender->setHitShip(2);
+			defender->setOriginalHit(originalHit);
+
+			set<int> shipShots = new set<int>();
+
+			//Sets the next potential shot in case the shot misses
+			if(selectShot == 0) {
+				shipShots.add(1);
+			} else if (selectShot == 1) {
+				shipShots.add(0);
+			} else if (selectShot == 2) {
+				shipShots.add(3);
+			} else {
+				shipShots.add(2);
+			}
+
+			//Checks if the next shot will be off the board
+
+		}
 	}	
 
 
@@ -105,21 +125,6 @@ int fire(Board* defender, Board* attacker) {
 									
 			//If it has, sets it that it has been hit more than once
 			if (hitShip == 1) {
-				defender.setHitShip(2);
-				defender.setOriginalHit(originalHit);
-				
-				Set<Integer> shipShots = new HashSet<Integer>();
-				
-				//Sets the next potential shot in case the shot misses
-				if (selectShot == 0) {
-					shipShots.add(1);
-				} else if (selectShot == 1) {
-					shipShots.add(0);
-				} else if (selectShot == 2) {
-					shipShots.add(3);
-				} else {
-					shipShots.add(2);
-				}
 				
 				//Checks if the next shot will be off the board
 				if ((selectShot == 0) && (shot.getX()+1>defender.getSize()-1)) {
