@@ -1,3 +1,6 @@
+Coordinate getNextShot(int selected, Coordinate hit);
+set<int> checkShipShots(set<Coordinate> potentialShots, Coordinate shot, Board* defender);
+
 int fire(Board* defender, Board* attacker) {
 
 	int result = 0;
@@ -25,7 +28,7 @@ int fire(Board* defender, Board* attacker) {
 		int shotSelected = rand()%shipShots.size()-1;
 		std::vector<int> shstList(shipShots.begin(),shipShots.end());
 		selectShot = shstList.at(shotSelected);
-		shstList.erase(shotSelected);
+		shstList.erase(shstList,selectShot);
 		shipShots.clear();
 
 		for (int remainShots:shstList) {
@@ -38,7 +41,7 @@ int fire(Board* defender, Board* attacker) {
 
 		//checks to see if there is anything left in potential shots
 		if(potentialShots.size()>0) {
-			potentialShots = removeShot(potentialShots,shot);
+			potentialShots.erase(potentialShots,shot);
 		}
 
 	//The shipt has been hit more than once
@@ -52,7 +55,7 @@ int fire(Board* defender, Board* attacker) {
 
 		//Checks to see if there is anything left in potential shots
 		if (potentialShots.size()>0) {
-			potentialShots = removeShot(potentialShots,shot);
+			potentialShots.erase(shot);
 		}
 	} else {
 
@@ -62,7 +65,7 @@ int fire(Board* defender, Board* attacker) {
 		vector<Coordinate> ptshList(potentialShots.begin(),potentialShots.end());
 
 		if (potentialShots.size()>0) {
-			potentialShots = removeShot(potentialShots,shot);
+			potentialShots.erase(shot);
 		}
 	}
 
@@ -90,7 +93,7 @@ int fire(Board* defender, Board* attacker) {
 
 		if (hitShip == 0) {
 			defender->setHitShip(1);
-			set<int> shipShots = checkShitShots(potentialShots,shot,defender);
+			set<int> shipShots = checkShipShots(potentialShots,shot,defender);
 			defender->setShipShots(shipShots);
 		}
 
@@ -146,7 +149,55 @@ int fire(Board* defender, Board* attacker) {
 
 	return hitResult;
 }
+
+Coordinate getNextShot(int selected, Coordinate hit) {
+
+	Coordinate shot;
+
+	if (selected == 0) {
+		shot = Coordinate(hit.getX()+1,hit.getY());
+	} else if (selected == 1) {
+		shot = Coordinate(hit.getX()-1,hit.getY());
+	} else if (selected == 2) {
+		shot = Coordinate(hit.getX(),hit.getY()+1);
+	} else {
+		shot = Coordinate(hit.getX(),hit.getY()-1);
+	}
+
+	return shot;
+}
+
+//Checks to see if the potential shots once the ship is hit, haven't already been taken. If they
+//haven't it adds the potential shot to the list
+set<int> checkShipShots(set<Coordinate> potentialShots, Coordinate shot, Board* defender) {
+
+	set<int> shipShots;
+
+	for (Coordinate ptshCoords:potentialShots) {
+
+		if ((ptshCoords.getX() == shot.getX()+1) && (ptshCoords.getY() == shot.getY())) {
+			if (shot.getX()+1<defender->getSize()) {
+				shipShots.insert(0);
+			}
+		} else if ((ptshCoords.getX() == shot.getX()+1) && (ptshCoords.getY() == shot.getY())) {
+			if (shot.getX()-1>-1) {
+				shipShots.insert(1);
+			}
+		} else if ((ptshCoords.getX() == shot.getX()) && (ptshCoords.getY() == shot.getY()+1)) {
+			if (shot.getY()+1<defender->getSize()) {
+				shipShots.insert(2);
+			}
+		} else if ((ptshCoords.getX() == shot.getX()) && (ptshCoords.getY() == shot.getY()-1)) {
+			if (shot.getY()>-1) {
+				shipShots.insert(3);
+			}
+		}
+	}
+	return shipShots;
+
+}
 		/*
+
 	//Method that takes a set and a coordinate and removes it from the set
 	private Set<Coordinate> removeShot(Set<Coordinate> potentialShots,Coordinate shot) {
 		
@@ -167,54 +218,5 @@ int fire(Board* defender, Board* attacker) {
 		potentialShots = new HashSet<Coordinate>(ptshList);
 		
 		return potentialShots;
-	}
-	
-	//Gets the next shots from when the ship was hit
-	private Coordinate getNextShot(int selected,Coordinate hit) {
-		
-		Coordinate shot;
-		
-		if (selected == 0) {
-			shot = new Coordinate(hit.getX()+1,hit.getY());
-		} else if (selected == 1) {
-			shot = new Coordinate(hit.getX()-1,hit.getY());
-		} else if (selected == 2) {
-			shot = new Coordinate(hit.getX(),hit.getY()+1);
-		} else {
-			shot = new Coordinate(hit.getX(),hit.getY()-1);
-		}
-		
-		return shot;
-	}
-	
-	//Checks to see if the potential shots once the ship is hit, haven't already been
-	//taken. If they haven't it adds the potential shot to the list
-	private Set<Integer> checkShipShots(Set<Coordinate> potentialShots, Coordinate shot,
-			Board defender) {
-		
-		Set<Integer> shipShots = new HashSet<Integer>();
-		
-		for (Coordinate ptshCoords:potentialShots) {
-		
-			if ((ptshCoords.getX() == shot.getX()+1) && (ptshCoords.getY() == shot.getY())) {
-				if (shot.getX()+1<defender.getSize()) {
-					shipShots.add(0);
-				}
-			} else if ((ptshCoords.getX() == shot.getX()-1) && (ptshCoords.getY() == shot.getY())) {
-				if (shot.getX()-1>-1) {
-					shipShots.add(1);
-				}
-			} else if ((ptshCoords.getX() == shot.getX()) && (ptshCoords.getY() == shot.getY()+1)) {
-				if (shot.getY()+1<defender.getSize()) {
-					shipShots.add(2);
-				}
-			}else if ((ptshCoords.getX() == shot.getX()) && (ptshCoords.getY() == shot.getY()-1)) {
-				if (shot.getY()-1>-1) {
-					shipShots.add(3);
-				}
-			}
-		}
-		return shipShots;
-	}
+	}	
 	*/
-}
