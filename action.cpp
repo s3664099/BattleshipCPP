@@ -28,7 +28,7 @@ int fire(Board* defender, Board* attacker) {
 		int shotSelected = rand()%shipShots.size()-1;
 		std::vector<int> shstList(shipShots.begin(),shipShots.end());
 		selectShot = shstList.at(shotSelected);
-		shstList.erase(shstList,selectShot);
+		shstList.erase(shstList.begin()+selectShot);
 		shipShots.clear();
 
 		for (int remainShots:shstList) {
@@ -41,7 +41,7 @@ int fire(Board* defender, Board* attacker) {
 
 		//checks to see if there is anything left in potential shots
 		if(potentialShots.size()>0) {
-			potentialShots.erase(potentialShots,shot);
+			potentialShots.erase(shot);
 		}
 
 	//The shipt has been hit more than once
