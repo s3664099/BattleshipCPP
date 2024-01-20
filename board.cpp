@@ -13,6 +13,26 @@ Board::Board(string objectName,int size) {
 	this->rows = size;
 	this->grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
 	this->spotsHit = grid = std::vector<std::vector<std::string>>(size, std::vector<std::string>(size, "."));
+
+	for (int i=0;i<this->rows;i++) {
+		for (int j=0;j<this->rows;j++) {
+			Coordinate potShot(i,j);
+			this->potentialShots.insert(potShot);
+		}
+	}
+
+	/*
+			//Builds the boards, and creates a set of potential shots
+		for (int i=0;i<this.rows;i++) {
+			for (int j=0;j<this.rows;j++) {
+				this.grid[i][j] = ".";
+				this.spotsHit[i][j] = ".";
+				Coordinate potShot = new Coordinate(i,j);
+				this.potentialShots.add(potShot);
+			}
+		}
+	*/
+
 	ships = new std::vector<Ship>();
 	
 	ships->push_back(Ship(4,'e',"Aircraft Carrier"));
@@ -44,6 +64,7 @@ std::vector<std::vector<std::string>>* Board::getSpotsHit() {
 }
 
 set<Coordinate> Board::getPotentialShots() {
+
 	return this->potentialShots;
 }
 

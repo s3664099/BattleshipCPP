@@ -62,6 +62,10 @@ int fire(Board* defender, Board* attacker) {
 		//Otherwise selects a random shot from the list of potential shots
 		int shotSelected = rand()%potentialShots.size()-1;
 
+		std::set<Coordinate>::iterator it = potentialShots.begin();
+		std::advance(it, shotSelected);
+		shot = *it;
+		
 		vector<Coordinate> ptshList(potentialShots.begin(),potentialShots.end());
 
 		if (potentialShots.size()>0) {
@@ -140,8 +144,8 @@ int fire(Board* defender, Board* attacker) {
 		}
 	}
 
-	(*grid)[shot.getX()][shot.getY()] == hitPosition;
-	(*spotsHit)[shot.getX()][shot.getY()] == hitPosition;
+	(*grid)[shot.getX()][shot.getY()] = hitPosition;
+	(*spotsHit)[shot.getX()][shot.getY()] = hitPosition;
 
 	if (hitResult == 2) {
 		defender->setHitShip(0);
