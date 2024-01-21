@@ -19,16 +19,21 @@ int fire(Board* defender, Board* attacker) {
 	//Has the ship already been hit
 	if (hitShip == 1) {
 
+		cout<<"One"<<endl;
+
 		//Gets the previous hit and sets it as the original
 		Coordinate hit = defender->getHit();
 		originalHit = hit;
 		std::set<int> shipShots = defender->getShipShots();
 
+		//Also, why does it display X has won when a ship is hit
+
 		//Selects a shot and removes it from the list
-		int shotSelected = rand()%shipShots.size()-1;
+		int shotSelected = rand()%shipShots.size();
 		std::vector<int> shstList(shipShots.begin(),shipShots.end());
-		selectShot = shstList.at(shotSelected);
-		shstList.erase(shstList.begin()+selectShot);
+		selectShot = shstList.at(shotSelected); //Out of Range
+
+		shstList.erase(shstList.begin()+shotSelected);
 		shipShots.clear();
 
 		for (int remainShots:shstList) {
@@ -58,6 +63,8 @@ int fire(Board* defender, Board* attacker) {
 			potentialShots.erase(shot);
 		}
 	} else {
+
+		cout<<"Three"<<endl;
 
 		//Otherwise selects a random shot from the list of potential shots
 		int shotSelected = rand()%potentialShots.size()-1;
@@ -200,27 +207,3 @@ set<int> checkShipShots(set<Coordinate> potentialShots, Coordinate shot, Board* 
 	return shipShots;
 
 }
-		/*
-
-	//Method that takes a set and a coordinate and removes it from the set
-	private Set<Coordinate> removeShot(Set<Coordinate> potentialShots,Coordinate shot) {
-		
-		//Converts the set into a list
-		List<Coordinate> ptshList = new ArrayList<>(potentialShots);
-		
-		//Locates the coordinate in the list
-		for (int x=0;x<ptshList.size();x++) {
-			if ((ptshList.get(x).getX() == shot.getX()) && (ptshList.get(x).getY() == shot.getY())) {
-
-				//Removes it from the list
-				ptshList.remove(x);
-			}
-		}
-		
-		//Clears the set and converts the list back to a new set
-		potentialShots.clear();
-		potentialShots = new HashSet<Coordinate>(ptshList);
-		
-		return potentialShots;
-	}	
-	*/

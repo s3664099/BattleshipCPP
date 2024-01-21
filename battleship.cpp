@@ -120,7 +120,7 @@ void showGrid(int boardSize,Board *firstShot,Board *secondShot,Board *opponent01
 	}
 }
 
-int turn(Board* defender, Board* attacker,bool skipTurn) {
+int turn(Board* attacker, Board* defender,bool skipTurn) {
 
 	int result = 0;
 
@@ -143,7 +143,7 @@ int turn(Board* defender, Board* attacker,bool skipTurn) {
 	}
 
 	//Checks for win conditions
-	if (result != 0) {
+	if (result == 3) {
 		std::cout<<attacker->getName()<<" has won."<<std::endl;
 	}
 
