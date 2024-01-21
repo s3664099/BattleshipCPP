@@ -19,19 +19,21 @@ int fire(Board* defender, Board* attacker) {
 	//Has the ship already been hit
 	if (hitShip == 1) {
 
-		cout<<"One"<<endl;
-
 		//Gets the previous hit and sets it as the original
 		Coordinate hit = defender->getHit();
 		originalHit = hit;
 		std::set<int> shipShots = defender->getShipShots();
 
-		//Also, why does it display X has won when a ship is hit
-
 		//Selects a shot and removes it from the list
 		int shotSelected = rand()%shipShots.size();
+
+		cout<<"One"<<endl;
+		cout<<shotSelected<<endl;
+		cout<<shipShots.size()<<endl;
+
+		cout<<shotSelected<<endl;
 		std::vector<int> shstList(shipShots.begin(),shipShots.end());
-		selectShot = shstList.at(shotSelected); //Out of Range
+		selectShot = shstList.at(shotSelected);
 
 		shstList.erase(shstList.begin()+shotSelected);
 		shipShots.clear();
@@ -52,6 +54,8 @@ int fire(Board* defender, Board* attacker) {
 	//The shipt has been hit more than once
 	} else if (hitShip ==2) {
 
+		cout<<"Two"<<endl;
+
 		//Retrieves the next shot
 		set<int> shipShots = defender->getShipShots();
 		Coordinate hit = defender->getHit();
@@ -64,10 +68,16 @@ int fire(Board* defender, Board* attacker) {
 		}
 	} else {
 
-		cout<<"Three"<<endl;
-
 		//Otherwise selects a random shot from the list of potential shots
-		int shotSelected = rand()%potentialShots.size()-1;
+		int shotSelected = rand()%potentialShots.size();
+
+		cout<<"Three"<<endl;
+		cout<<shotSelected<<endl;
+		cout<<potentialShots.size()<<endl;
+
+		for (Coordinate shot:potentialShots) {
+			cout<<shot.getX()<<" "<<shot.getY()<<endl;
+		}
 
 		std::set<Coordinate>::iterator it = potentialShots.begin();
 		std::advance(it, shotSelected);

@@ -81,8 +81,8 @@ void start_game(Board *opponent01,Board *opponent02,int players) {
 		turns += 1;
 
 		//Sleeps for 2 seconds
-	    std::chrono::seconds dura( 2);
-	    std::this_thread::sleep_for( dura );
+	    //std::chrono::seconds dura( 2);
+	    //std::this_thread::sleep_for( dura );
 
 	    result = turn(firstShot,secondShot, skipTurn);
 
