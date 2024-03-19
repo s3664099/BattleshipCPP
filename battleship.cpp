@@ -9,6 +9,12 @@
 #include "action.cpp"
 using namespace std;
 
+/*
+- So the floating point error comes out in line 30 in action where shipshots size = 0
+- 
+*/
+
+
 //Action
 
 int boardSize = 10;

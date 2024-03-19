@@ -27,11 +27,6 @@ int fire(Board* defender, Board* attacker) {
 		//Selects a shot and removes it from the list
 		int shotSelected = rand()%shipShots.size();
 
-		cout<<"One"<<endl;
-		cout<<shotSelected<<endl;
-		cout<<shipShots.size()<<endl;
-
-		cout<<shotSelected<<endl;
 		std::vector<int> shstList(shipShots.begin(),shipShots.end());
 		selectShot = shstList.at(shotSelected);
 
@@ -54,8 +49,6 @@ int fire(Board* defender, Board* attacker) {
 	//The shipt has been hit more than once
 	} else if (hitShip ==2) {
 
-		cout<<"Two"<<endl;
-
 		//Retrieves the next shot
 		set<int> shipShots = defender->getShipShots();
 		Coordinate hit = defender->getHit();
@@ -70,14 +63,6 @@ int fire(Board* defender, Board* attacker) {
 
 		//Otherwise selects a random shot from the list of potential shots
 		int shotSelected = rand()%potentialShots.size();
-
-		cout<<"Three"<<endl;
-		cout<<shotSelected<<endl;
-		cout<<potentialShots.size()<<endl;
-
-		for (Coordinate shot:potentialShots) {
-			cout<<shot.getX()<<" "<<shot.getY()<<endl;
-		}
 
 		std::set<Coordinate>::iterator it = potentialShots.begin();
 		std::advance(it, shotSelected);
@@ -98,7 +83,7 @@ int fire(Board* defender, Board* attacker) {
 
 	//Has this empty spot already been hit
 	if ((*grid)[shot.getX()][shot.getY()] == "0") {
-		(*grid)[shot.getX()][shot.getY()] == ".";
+		(*grid)[shot.getX()][shot.getY()] = ".";
 	}
 
 	if ((*grid)[shot.getX()][shot.getY()] != ".") {

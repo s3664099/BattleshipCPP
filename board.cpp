@@ -77,15 +77,18 @@ set<int> Board::getShipShots() {
 }
 
 void Board::setShipShots(set<int> shipShots) {
+
 	this->shipShots = shipShots;
 }
 
 //Getters & Setters for the hits
 void Board::setHitShip(int hitShip) {
+
 	this->hitShip = hitShip;
 }
 
 int Board::getHitShip() {
+
 	return this->hitShip;
 }
 
