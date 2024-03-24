@@ -10,8 +10,9 @@
 using namespace std;
 
 /*
-- So the floating point error comes out in line 30 in action where shipshots size = 0
-- Seg Fault seems to be solved - so we need to trace back to why the shipshot's size is 0
+- Okay, it looks like that only 3 ship shots are going in instead of 4
+- Also, there seems to be instances where the shots are attempting to be taken off the board, and it isn't being captured
+- A crash occurred when placing the ships (I suspect it is going off the board as well)
 */
 
 
