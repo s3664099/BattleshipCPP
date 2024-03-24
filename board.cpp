@@ -73,6 +73,7 @@ void Board::setPotentialShots(set<Coordinate> potentialShots) {
 }
 
 set<int> Board::getShipShots() {
+
 	return this->shipShots;
 }
 

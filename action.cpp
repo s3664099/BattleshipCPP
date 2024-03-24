@@ -16,6 +16,8 @@ int fire(Board* defender, Board* attacker) {
 	int hitResult = 0;
 	std::set<Coordinate> potentialShots = attacker->getPotentialShots();
 
+	std::cout<<"Hit Ship "<<hitShip<<std::endl;
+
 	//Has the ship already been hit
 	if (hitShip == 1) {
 
@@ -23,6 +25,8 @@ int fire(Board* defender, Board* attacker) {
 		Coordinate hit = defender->getHit();
 		originalHit = hit;
 		std::set<int> shipShots = defender->getShipShots();
+
+		std::cout<<shipShots.size()<<std::endl;
 
 		//Selects a shot and removes it from the list
 		int shotSelected = rand()%shipShots.size();
@@ -95,13 +99,13 @@ int fire(Board* defender, Board* attacker) {
 		defender->setHit(shot);
 		hitResult = defender->checkWhichShip(shot,attacker->getName());
 
-		std::cout<<"Hit result "<<hitResult<<std::endl;
-
 		if (hitShip == 0) {
 			defender->setHitShip(1);
 			set<int> shipShots = checkShipShots(potentialShots,shot,defender);
 			defender->setShipShots(shipShots);
 		}
+
+		//std::cout<<hitShip<<std::endl;
 
 		//If it has, sets it that it has been hit more than once
 		if (hitShip == 1) {
@@ -133,6 +137,23 @@ int fire(Board* defender, Board* attacker) {
 			}
 
 			defender->setShipShots(shipShots);
+		} else if (hitShip == 2) {
+
+			std::cout<<shot.getX()+1<<std::endl;
+			std::cout<<defender->getSize()-1<<std::endl;
+			std::cout<<shot.getY()+1<<std::endl;
+
+			//Checks if the next shot will be off the board
+			if ((selectShot == 0) && (shot.getX()+1>defender->getSize()-1)) {
+				defender->setMovement(1);
+			} else if ((selectShot == 1) && (shot.getX()+1<0)) {
+				defender->setMovement(0);
+			} else if ((selectShot == 2) && (shot.getY()+1>defender->getSize()-1)) {
+				defender->setMovement(3);
+			} else if ((selectShot == 4) && (shot.getY()+1<0)) {
+				defender->setMovement(2);
+			}
+
 		}
 
 	//If it was a miss

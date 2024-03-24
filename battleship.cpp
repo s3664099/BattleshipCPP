@@ -11,7 +11,7 @@ using namespace std;
 
 /*
 - So the floating point error comes out in line 30 in action where shipshots size = 0
-- 
+- Seg Fault seems to be solved - so we need to trace back to why the shipshot's size is 0
 */
 
 
