@@ -26,8 +26,6 @@ int fire(Board* defender, Board* attacker) {
 		originalHit = hit;
 		std::set<int> shipShots = defender->getShipShots();
 
-		std::cout<<shipShots.size()<<std::endl;
-
 		//Selects a shot and removes it from the list
 		int shotSelected = rand()%shipShots.size();
 
@@ -104,8 +102,6 @@ int fire(Board* defender, Board* attacker) {
 			set<int> shipShots = checkShipShots(potentialShots,shot,defender);
 			defender->setShipShots(shipShots);
 		}
-
-		//std::cout<<hitShip<<std::endl;
 
 		//If it has, sets it that it has been hit more than once
 		if (hitShip == 1) {
@@ -206,7 +202,7 @@ set<int> checkShipShots(set<Coordinate> potentialShots, Coordinate shot, Board* 
 			if (shot.getX()+1<defender->getSize()) {
 				shipShots.insert(0);
 			}
-		} else if ((ptshCoords.getX() == shot.getX()+1) && (ptshCoords.getY() == shot.getY())) {
+		} else if ((ptshCoords.getX() == shot.getX()-1) && (ptshCoords.getY() == shot.getY())) {
 			if (shot.getX()-1>-1) {
 				shipShots.insert(1);
 			}
