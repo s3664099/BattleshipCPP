@@ -124,32 +124,32 @@ int fire(Board* defender, Board* attacker) {
 			//Checks if the next shot will be off the board
 			if ((selectShot == 0) && (shot.getX()+1>defender->getSize()-1)) {
 				defender->setMovement(1);
-			} else if ((selectShot == 1) && (shot.getX()+1<0)) {
+			} else if ((selectShot == 1) && (shot.getX()-1<0)) {
 				defender->setMovement(0);
 			} else if ((selectShot == 2) && (shot.getY()+1>defender->getSize()-1)) {
 				defender->setMovement(3);
-			} else if ((selectShot == 4) && (shot.getY()+1<0)) {
+			} else if ((selectShot == 3) && (shot.getY()-1<0)) {
 				defender->setMovement(2);
 			}
 
 			defender->setShipShots(shipShots);
 		} else if (hitShip == 2) {
 
-			std::cout<<shot.getX()+1<<std::endl;
-			std::cout<<defender->getSize()-1<<std::endl;
-			std::cout<<shot.getY()+1<<std::endl;
-
 			//Checks if the next shot will be off the board
+			//If so, sets it to the original position and reverses direction
 			if ((selectShot == 0) && (shot.getX()+1>defender->getSize()-1)) {
 				defender->setMovement(1);
-			} else if ((selectShot == 1) && (shot.getX()+1<0)) {
+				defender->setHit(defender->getOriginalHit());
+			} else if ((selectShot == 1) && (shot.getX()-1<0)) {
 				defender->setMovement(0);
+				defender->setHit(defender->getOriginalHit());
 			} else if ((selectShot == 2) && (shot.getY()+1>defender->getSize()-1)) {
 				defender->setMovement(3);
-			} else if ((selectShot == 4) && (shot.getY()+1<0)) {
+				defender->setHit(defender->getOriginalHit());
+			} else if ((selectShot == 3) && (shot.getY()-1<0)) {
 				defender->setMovement(2);
+				defender->setHit(defender->getOriginalHit());
 			}
-
 		}
 
 	//If it was a miss

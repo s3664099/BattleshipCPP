@@ -10,8 +10,8 @@
 using namespace std;
 
 /*
-- Okay, it looks like that only 3 ship shots are going in instead of 4
 - Also, there seems to be instances where the shots are attempting to be taken off the board, and it isn't being captured
+	- The issue is when ship shots are 2 - and obviously the ship hasn't sunk yet
 - A crash occurred when placing the ships (I suspect it is going off the board as well)
 */
 
@@ -88,8 +88,8 @@ void start_game(Board *opponent01,Board *opponent02,int players) {
 		turns += 1;
 
 		//Sleeps for 2 seconds
-	    //std::chrono::seconds dura( 2);
-	    //std::this_thread::sleep_for( dura );
+	    std::chrono::seconds dura( 2);
+	    std::this_thread::sleep_for( dura );
 
 	    result = turn(firstShot,secondShot, skipTurn);
 
